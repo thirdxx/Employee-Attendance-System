@@ -1,0 +1,258 @@
+.desktop {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .desktop .main-dashboard-wrapper {
+    background-color: #ffffff;
+    width: 1440px;
+    height: 1024px;
+  }
+  
+  .desktop .main-dashboard {
+    position: relative;
+    width: 1326px;
+    height: 875px;
+    top: 75px;
+    left: 57px;
+    background-color: #fed9ed;
+    border-radius: 45px;
+  }
+  
+  .desktop .overlap {
+    position: absolute;
+    width: 294px;
+    height: 857px;
+    top: 9px;
+    left: 2px;
+  }
+  
+  .desktop .menu-bar {
+    position: absolute;
+    width: 294px;
+    height: 857px;
+    top: 0;
+    left: 0;
+  }
+  
+  .desktop .overlap-group {
+    position: relative;
+    width: 296px;
+    height: 857px;
+  }
+  
+  .desktop .div {
+    position: absolute;
+    width: 274px;
+    height: 857px;
+    top: 0;
+    left: 0;
+    background-color: #e7bcde;
+    border-radius: 45px;
+  }
+  
+  .desktop .LOGO-PLACEMENT {
+    position: absolute;
+    width: 276px;
+    height: 80px;
+    top: 10px;
+    left: 20px;
+  }
+  
+  .desktop .overlap-group-2 {
+    position: relative;
+    width: 274px;
+    height: 80px;
+    background-color: #fed9ed;
+    border-radius: 50px;
+  }
+  
+  .desktop .LOGO-HERE {
+    position: absolute;
+    width: 184px;
+    height: 32px;
+    top: 29px;
+    left: 50px;
+  }
+  
+  .desktop .dash-menu {
+    position: absolute;
+    width: 276px;
+    height: 80px;
+    top: 99px;
+    left: 20px;
+  }
+  
+  .desktop .text-wrapper {
+    position: absolute;
+    width: 199px;
+    top: 22px;
+    left: 51px;
+    font-family: "Inter-Regular", Helvetica;
+    font-weight: 400;
+    color: #000000;
+    font-size: 32px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  .desktop .employees {
+    position: absolute;
+    width: 276px;
+    height: 80px;
+    top: 189px;
+    left: 20px;
+  }
+  
+  .desktop .rectangle {
+    position: absolute;
+    width: 6px;
+    height: 47px;
+    top: 117px;
+    left: 274px;
+    background-color: #67729d;
+  }
+  
+  .desktop .BANNER {
+    position: absolute;
+    width: 699px;
+    height: 219px;
+    top: 60px;
+    left: 318px;
+  }
+  
+  .desktop .div-wrapper {
+    position: relative;
+    width: 697px;
+    height: 219px;
+    background-color: #bb9cc0;
+    border-radius: 30px;
+  }
+  
+  .desktop .text-wrapper-2 {
+    position: absolute;
+    width: 435px;
+    top: 73px;
+    left: 130px;
+    font-family: "Poppins-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #fed9ed;
+    font-size: 50px;
+    letter-spacing: 0;
+    line-height: normal;
+    white-space: nowrap;
+  }
+  
+  .desktop .calendar {
+    position: absolute;
+    width: 176px;
+    height: 229px;
+    top: 312px;
+    left: 318px;
+  }
+  
+  .desktop .overlap-2 {
+    position: relative;
+    width: 170px;
+    height: 229px;
+    background-color: #e5d4ff;
+    border-radius: 80px 80px 0.5px 80px;
+  }
+  
+  .desktop .text-wrapper-3 {
+    position: absolute;
+    top: 37px;
+    left: 45px;
+    font-family: "Inter-Regular", Helvetica;
+    font-weight: 400;
+    color: #000000;
+    font-size: 32px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  .desktop .expand-arrow {
+    position: absolute;
+    width: 19px;
+    height: 19px;
+    top: 49px;
+    left: 106px;
+  }
+  
+  .desktop .text-wrapper-4 {
+    position: absolute;
+    top: 92px;
+    left: 64px;
+    font-family: "Inter-Regular", Helvetica;
+    font-weight: 400;
+    color: #000000;
+    font-size: 20px;
+    letter-spacing: 0;
+    line-height: normal;
+    white-space: nowrap;
+  }
+  
+  .desktop .text-wrapper-5 {
+    position: absolute;
+    top: 133px;
+    left: 62px;
+    font-family: "Inter-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #000000;
+    font-size: 40px;
+    letter-spacing: 0;
+    line-height: normal;
+    white-space: nowrap;
+  }
+  
+  .desktop .search {
+    position: absolute;
+    width: 705px;
+    height: 229px;
+    top: 312px;
+    left: 548px;
+    background-color: #6c5f5b;
+    border-radius: 0.6px 20px 20px 20px;
+  }
+  
+  .desktop .profile {
+    position: absolute;
+    width: 214px;
+    height: 219px;
+    top: 60px;
+    left: 1041px;
+  }
+  
+  .desktop .overlap-3 {
+    position: relative;
+    width: 212px;
+    height: 219px;
+    background-color: #ceab93;
+    border-radius: 10px;
+  }
+  
+  .desktop .text-wrapper-6 {
+    position: absolute;
+    top: 147px;
+    left: 17px;
+    font-family: "Poppins-Medium", Helvetica;
+    font-weight: 500;
+    color: #000000;
+    font-size: 13px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  .desktop .ellipse {
+    position: absolute;
+    width: 123px;
+    height: 112px;
+    top: 20px;
+    left: 44px;
+    background-color: #d9d9d9;
+    border-radius: 61.5px/56px;
+  }
+  
