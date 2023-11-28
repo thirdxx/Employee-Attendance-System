@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 27, 2023 at 09:57 PM
+-- Generation Time: Nov 28, 2023 at 05:56 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -52,29 +52,20 @@ CREATE TABLE `atlog` (
   `atlog_date` date DEFAULT NULL,
   `am_in` time DEFAULT NULL,
   `am_out` time DEFAULT NULL,
-  `pe_in` time DEFAULT NULL,
-  `pe_out` time DEFAULT NULL,
+  `pm_in` time DEFAULT NULL,
+  `pm_out` time DEFAULT NULL,
   `am_late` int(11) DEFAULT NULL,
   `am_undertime` int(11) DEFAULT NULL,
   `pm_late` int(11) DEFAULT NULL,
   `pm_undertime` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `daily`
+-- Dumping data for table `atlog`
 --
 
-CREATE TABLE `daily` (
-  `id` int(11) NOT NULL,
-  `employee_name` varchar(100) DEFAULT NULL,
-  `am_in` time DEFAULT NULL,
-  `am_out` time DEFAULT NULL,
-  `pm_in` time DEFAULT NULL,
-  `pm_out` time DEFAULT NULL,
-  `attendance_date` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `atlog` (`atlog_id`, `emp_id`, `atlog_date`, `am_in`, `am_out`, `pm_in`, `pm_out`, `am_late`, `am_undertime`, `pm_late`, `pm_undertime`) VALUES
+(1, 1, '2023-11-28', '08:00:00', '12:00:00', '01:00:00', '05:00:00', 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -98,22 +89,6 @@ CREATE TABLE `employee` (
 
 INSERT INTO `employee` (`employee_id`, `first_name`, `middle_name`, `last_name`, `address`, `email`, `phone`) VALUES
 (1, 'Maureen', 'Asirit', 'Benitez', 'Tabaco City', 'mab@gmail.com', '09123456789');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `monthly`
---
-
-CREATE TABLE `monthly` (
-  `id` int(11) NOT NULL,
-  `employee_name` varchar(100) NOT NULL,
-  `attendance_date` date NOT NULL,
-  `am_in` time DEFAULT NULL,
-  `am_out` time DEFAULT NULL,
-  `pm_in` time DEFAULT NULL,
-  `pm_out` time DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -145,22 +120,10 @@ ALTER TABLE `atlog`
   ADD PRIMARY KEY (`atlog_id`);
 
 --
--- Indexes for table `daily`
---
-ALTER TABLE `daily`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `employee`
 --
 ALTER TABLE `employee`
   ADD PRIMARY KEY (`employee_id`);
-
---
--- Indexes for table `monthly`
---
-ALTER TABLE `monthly`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `users`
@@ -182,25 +145,13 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `atlog`
 --
 ALTER TABLE `atlog`
-  MODIFY `atlog_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `daily`
---
-ALTER TABLE `daily`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `atlog_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
   MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `monthly`
---
-ALTER TABLE `monthly`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
