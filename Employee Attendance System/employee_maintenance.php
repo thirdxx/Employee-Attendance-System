@@ -55,19 +55,19 @@
                 // Fetch employee data from the database
                 $stmt = $pdo->query("SELECT * FROM employee"); // Replace 'employee' with your actual table name
 
-                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                while ($employee = $stmt->fetch(PDO::FETCH_ASSOC)) {
                     echo "<tr>";
-                    echo "<td>{$row['employee_id']}</td>";
-                    echo "<td>{$row['first_name']}</td>";
-                    echo "<td>{$row['middle_name']}</td>";
-                    echo "<td>{$row['last_name']}</td>";
-                    echo "<td>{$row['address']}</td>";
-                    echo "<td>{$row['email']}</td>";
-                    echo "<td>{$row['phone']}</td>";
+                    echo "<td>{$employee['employee_id']}</td>";
+                    echo "<td>{$employee['first_name']}</td>";
+                    echo "<td>{$employee['middle_name']}</td>";
+                    echo "<td>{$employee['last_name']}</td>";
+                    echo "<td>{$employee['address']}</td>";
+                    echo "<td>{$employee['email']}</td>";
+                    echo "<td>{$employee['phone']}</td>";
                     echo "<td class='action-btns'>
-                            <button onclick='viewEmployee({$row['employee_id']})'>View</button>
-                            <button onclick='editEmployee({$row['employee_id']})'>Edit</button>
-                            <button onclick='deleteEmployee({$row['employee_id']})'>Delete</button>
+                            <button onclick='viewEmployee({$employee['employee_id']})'>View</button>
+                            <button onclick='editEmployee({$employee['employee_id']})'>Edit</button>
+                            <button onclick='deleteEmployee({$employee['employee_id']})'>Delete</button>
                           </td>";
                     echo "</tr>";
                 }

@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome CDN -->
-	<link rel="stylesheet" href="css/dashboard.css"> <!-- Assuming this contains your main styles -->
-	<link rel="stylesheet" href="css/monthly_attendance_report.css"> <!-- Add your monthly attendance report styles here -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="css/dashboard.css"> <!-- Assuming this contains your main styles -->
+    <link rel="stylesheet" href="css/monthly_attendance_report.css"> <!-- Add your monthly attendance report styles here -->
     <title>Monthly Attendance Report</title>
 </head>
 <body>
@@ -35,20 +35,30 @@
         $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        // Fetch monthly attendance data for the current month and year
+        // Fetch monthly attendance data for the current month and year from atlog table
         $currentMonth = date("m");
         $currentYear = date("Y");
-        $stmt = $pdo->prepare("SELECT * FROM monthly WHERE MONTH(attendance_date) = :month AND YEAR(attendance_date) = :year");
+        $stmt = $pdo->prepare("SELECT employee.first_name, employee.last_name, atlog.atlog_date, atlog.am_in, atlog.am_out, atlog.pm_in, atlog.pm_out 
+                               FROM atlog 
+                               INNER JOIN employee ON atlog.emp_id = employee.employee_id
+                               WHERE MONTH(atlog.atlog_date) = :month AND YEAR(atlog.atlog_date) = :year");
         $stmt->bindParam(":month", $currentMonth);
         $stmt->bindParam(":year", $currentYear);
         $stmt->execute();
-        $monthlyData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $atlogData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        // Concatenate first name and last name to form Employee Name
+        $employeeName = '';
+        foreach ($atlogData as $atlog) {
+            $employeeName = $atlog['first_name'] . ' ' . $atlog['last_name'];
+            break; // Take the first employee's name assuming one employee for this report
+        }
         ?>
         <h2>Monthly Attendance Report - Month of <?php echo date("F Y"); ?></h2>
+        <p>Employee Name: <?php echo $employeeName; ?></p>
         <table>
             <thead>
                 <tr>
-                    <th>Employee Name</th>
                     <th>Date</th>
                     <th>AM IN</th>
                     <th>AM OUT</th>
@@ -58,14 +68,13 @@
             </thead>
             <tbody>
                 <?php
-                foreach ($monthlyData as $monthly) {
+                foreach ($atlogData as $atlog) {
                     echo "<tr>";
-                    echo "<td>{$monthly['employee_name']}</td>";
-                    echo "<td>{$monthly['attendance_date']}</td>";
-                    echo "<td>{$monthly['am_in']}</td>";
-                    echo "<td>{$monthly['am_out']}</td>";
-                    echo "<td>{$monthly['pm_in']}</td>";
-                    echo "<td>{$monthly['pm_out']}</td>";
+                    echo "<td>{$atlog['atlog_date']}</td>";
+                    echo "<td>{$atlog['am_in']}</td>";
+                    echo "<td>{$atlog['am_out']}</td>";
+                    echo "<td>{$atlog['pm_in']}</td>";
+                    echo "<td>{$atlog['pm_out']}</td>";
                     echo "</tr>";
                 }
             } catch (PDOException $e) {

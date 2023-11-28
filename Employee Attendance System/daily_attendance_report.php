@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome CDN -->
-	<link rel="stylesheet" href="css/dashboard.css"> <!-- Assuming this contains your main styles -->
-	<link rel="stylesheet" href="css/daily_attendance_report.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="css/dashboard.css"> <!-- Assuming this contains your main styles -->
+    <link rel="stylesheet" href="css/daily_attendance_report.css">
     <title>Daily Attendance Report</title>
 </head>
 <body>
@@ -38,39 +38,44 @@
         </thead>
         <tbody>
             <?php
-        // MySQL database connection
-        $host = "localhost";
-        $dbname = "EmployeeAttendanceSystem"; // Replace with your actual database name
-        $username = "root"; // Replace with your actual username
-        $password = ""; // Replace with your actual password
+            // MySQL database connection
+            $host = "localhost";
+            $dbname = "EmployeeAttendanceSystem"; // Replace with your actual database name
+            $username = "root"; // Replace with your actual username
+            $password = ""; // Replace with your actual password
 
-        try {
-            $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            try {
+                $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            // Fetch daily attendance data for the current date
-            $currentDate = date("Y-m-d");
-            $stmt = $pdo->prepare("SELECT * FROM daily WHERE attendance_date = :date");
-            $stmt->bindParam(":date", $currentDate);
-            $stmt->execute();
-            $dailyData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                // Fetch daily attendance data for the current date with employee names from employee table
+                $currentDate = date("Y-m-d");
+                $stmt = $pdo->prepare("SELECT employee.first_name, employee.last_name, atlog.am_in, atlog.am_out, atlog.pm_in, atlog.pm_out 
+                                       FROM atlog 
+                                       INNER JOIN employee ON atlog.emp_id = employee.employee_id 
+                                       WHERE atlog.atlog_date = :date");
+                $stmt->bindParam(":date", $currentDate);
+                $stmt->execute();
+                $atlogData = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            foreach ($dailyData as $daily) {
-                echo "<tr>";
-                echo "<td>{$daily['employee_name']}</td>";
-                echo "<td>{$daily['am_in']}</td>";
-                echo "<td>{$daily['am_out']}</td>";
-                echo "<td>{$daily['pm_in']}</td>";
-                echo "<td>{$daily['pm_out']}</td>";
-                echo "</tr>";
+                foreach ($atlogData as $atlog) {
+                    $employeeName = $atlog['first_name'] . ' ' . $atlog['last_name'];
+                    echo "<tr>";
+                    echo "<td>{$employeeName}</td>";
+                    echo "<td>{$atlog['am_in']}</td>";
+                    echo "<td>{$atlog['am_out']}</td>";
+                    echo "<td>{$atlog['pm_in']}</td>";
+                    echo "<td>{$atlog['pm_out']}</td>";
+                    echo "</tr>";
+                }
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
             }
-        } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
-        }
-        ?>
+            ?>
         </tbody>
     </table>
 </div>
 
 </body>
 </html>
+
