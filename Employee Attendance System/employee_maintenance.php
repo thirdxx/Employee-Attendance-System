@@ -5,12 +5,13 @@
     <title>Employee Maintenance</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="css/dashboard.css"> <!-- Assuming this contains your main styles -->
-	<link rel="stylesheet" href="css/emp_maintenance.css">
+    <link rel="stylesheet" href="css/emp_maintenance.css">
 </head>
 <body>
 
 <!-- Sidebar from main.php -->
 <div class="sidebar">
+    
     <h2>Logo here</h2>
     <ul>
         <li><a href="dashboard.php"><i class="fas fa-home"></i>Dashboard</a></li>
@@ -21,78 +22,23 @@
     </ul>
     <a href="admin_login.php" class="logout-btn"><i class="fas fa-sign-out-alt"></i>Logout</a>
 </div>
-
-<!-- Content Area -->
 <div class="content">
-    <h2>Employee Maintenance</h2>
-
-    <!-- Employee Table -->
-    <table>
-        <thead>
+<form method="post" action="emp_maintenance_crud/emp_process.php">
+        <table>
             <tr>
-                <th>Employee ID</th>
-                <th>First Name</th>
-                <th>Middle Name</th>
-                <th>Last Name</th>
-                <th>Address</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Actions</th>
+                <td><input type="text" name="first_name" placeholder="First Name" required></td>
+                <td><input type="text" name="middle_name" placeholder="Middle Name"></td>
+                <td><input type="text" name="last_name" placeholder="Last Name" required></td>
+                <td><input type="text" name="address" placeholder="Address" required></td>
+                <td><input type="text" name="email" placeholder="Email" required></td>
+                <td><input type="text" name="phone" placeholder="Phone" required></td>
+                <td><button type="submit" name="add">Add</button></td>
             </tr>
-        </thead>
-        <tbody>
-            <?php
-            // MySQL database connection
-            $host = "localhost";
-            $dbname = "EmployeeAttendanceSystem";
-            $username = "root";
-            $password = "";
-
-            try {
-                $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-                // Fetch employee data from the database
-                $stmt = $pdo->query("SELECT * FROM employee"); // Replace 'employee' with your actual table name
-
-                while ($employee = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                    echo "<tr>";
-                    echo "<td>{$employee['employee_id']}</td>";
-                    echo "<td>{$employee['first_name']}</td>";
-                    echo "<td>{$employee['middle_name']}</td>";
-                    echo "<td>{$employee['last_name']}</td>";
-                    echo "<td>{$employee['address']}</td>";
-                    echo "<td>{$employee['email']}</td>";
-                    echo "<td>{$employee['phone']}</td>";
-                    echo "<td class='action-btns'>
-                            <button onclick='viewEmployee({$employee['employee_id']})'>View</button>
-                            <button onclick='editEmployee({$employee['employee_id']})'>Edit</button>
-                            <button onclick='deleteEmployee({$employee['employee_id']})'>Delete</button>
-                          </td>";
-                    echo "</tr>";
-                }
-            } catch (PDOException $e) {
-                echo "Error: " . $e->getMessage();
-            }
-            ?>
-        </tbody>
-    </table>
-
-    <!-- JavaScript functions to handle actions (view, edit, delete) -->
-    <script>
-        function viewEmployee(employeeId) {
-            alert(`View Employee ID: ${employeeId}`);
-        }
-
-        function editEmployee(employeeId) {
-            alert(`Edit Employee ID: ${employeeId}`);
-        }
-
-        function deleteEmployee(employeeId) {
-            alert(`Delete Employee ID: ${employeeId}`);
-        }
-    </script>
+            <tbody>
+                <?php include 'emp_maintenance_crud/emp_add.php'; ?>
+            </tbody>
+        </table>
+    </form>
 </div>
-
 </body>
 </html>
