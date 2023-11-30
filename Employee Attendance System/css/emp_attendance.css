@@ -1,0 +1,97 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-image: url("bg.jpg");
+  background-size: cover; /* Ensures the image covers the entire background */
+  background-position: center; /* Centers the background image */
+  background-repeat: no-repeat; /* Prevents the background image from repeating */
+}
+h1 {
+  font-size: 20px; /* Adjust the font size as needed */
+  color: white; /* Set the text color */
+  margin-bottom: 20px; /* Adjust the bottom margin as needed */
+  font-weight: bold; /* Set the font weight, if desired */
+  text-align: center; /* Align the text to the center, if desired */
+  padding: 10px;
+  background-color: #253f14;
+  border-radius: 5px;
+  /* max-width: 300px; */
+  margin: 50px 450px -30px;
+}
+
+.search-container {
+  margin: 50px auto;
+  max-width: 400px;
+  background-color: #e2f0d9; /* White background color for the search container */
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Box shadow for a subtle lift effect */
+}
+
+#emp_id {
+  font-size: 14px; /* Adjust the font size as needed */
+  padding: 8px; /* Adjust the padding as needed */
+  width: 50%;
+  background-color: #c5e0b4;
+  border: 1px solid #548235;
+  border-radius: 10px;
+  text-align: center;
+}
+
+input::placeholder {
+  color: #385723; /* Set the desired color for the placeholder text */
+}
+
+#name {
+  font-size: 14px; /* Adjust the font size as needed */
+  padding: 8px; /* Adjust the padding as needed */
+  width: 80%;
+  margin-top: 10px;
+  background-color: #c5e0b4;
+  border: 1px solid #548235;
+  border-radius: 10px;
+  text-align: center;
+}
+
+hr {
+  color: #253f14;
+}
+.person-icon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 10px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+label {
+  margin-bottom: 5px;
+}
+
+input {
+  padding: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+button {
+  padding: 10px;
+  background-color: #a9d18e; /* Green color */
+  color: #385723;
+  border: 1px solid #548235;
+  cursor: pointer;
+  border-radius: 10px;
+  width: 80px;
+}
+
+button:hover {
+  background-color: #45a049; /* Darker green color on hover */
+}
+
+button.time {
+  font-weight: 600;
+}
