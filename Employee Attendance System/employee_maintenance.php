@@ -54,7 +54,14 @@
 <!-- Content Area -->
 <div class="content">
     <h2>Employee Maintenance</h2>
-	
+	  <!-- Search Form -->
+    <form class="search-form" action="employee_maintenance.php" method="get">
+        <input type="text" name="search_employee_id" class="search-input" placeholder="Employee ID">
+        <button type="submit" class="search-btn">Search</button>
+    </form>
+
+    <!-- Include the search results from search_employee.php -->
+    <?php include 'employee_maintenance_crud/search_employee.php'; ?>
 	<a href="employee_maintenance_crud/add_employee.php" class="add-btn">Add Employee</a>
 
     <!-- Employee Table -->

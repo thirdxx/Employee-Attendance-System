@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute();
 
         // Redirect to employee maintenance page after adding the employee
-        header("Location: employee_maintenance.php");
+        header("Location: ../employee_maintenance.php");
         exit();
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
