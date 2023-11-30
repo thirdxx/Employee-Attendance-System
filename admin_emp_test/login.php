@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="test form.css">
-	<script type="text/javascript" src="test form.js"></script>
+    <link rel="stylesheet" href="login.css">
+	<script type="text/javascript" src="login.js"></script>
     <title>Test</title>
 </head>
 <body>
