@@ -39,11 +39,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($userType === "admin") {
             // Redirect the admin user to the dashboard page (dashboard.php)
-            header('Location: ../dashboard.php');
+            header('Location: dashboard.php');
             exit();
         } else {
             // Redirect the employee user to the employee attendance page (employee_attendance.php)
-            header('Location: ../emp_attendance.php');
+            header('Location: Employee Attendance System/employee_attendance.php');
             exit();
         }
     } else {

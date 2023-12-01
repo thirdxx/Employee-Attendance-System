@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if the insertion was successful
     if ($stmt->rowCount() > 0) {
         // Registration successful, redirect the user to a success page or login page
-        header("Location: emp_attendance.php");
+        header("Location: ../emp_attendance.php");
         exit();
     } else {
         // Registration failed, handle the error (e.g., display an error message)
