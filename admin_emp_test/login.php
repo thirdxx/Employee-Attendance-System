@@ -10,7 +10,7 @@
 <body>
 <div class="container" id="container">
 	<div class="form-container sign-up-container">
-		<form action="register.php" method="POST">
+		<form action="signUP.php" method="POST">
 			<h1>Create Account</h1>
 			<div class="social-container">
 				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
