@@ -49,6 +49,7 @@
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
                 // Fetch daily attendance data for the current date with employee names from employee table
+				date_default_timezone_set('Asia/Shanghai'); // Set your timezone
                 $currentDate = date("Y-m-d");
                 $stmt = $pdo->prepare("SELECT employee.first_name, employee.last_name, atlog.am_in, atlog.am_out, atlog.pm_in, atlog.pm_out 
                                        FROM atlog 

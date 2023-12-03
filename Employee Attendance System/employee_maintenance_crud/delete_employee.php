@@ -19,7 +19,7 @@ if (isset($_GET['id'])) {
             $stmt->execute();
 
             // Redirect back to the employee maintenance page after deletion
-            header("Location: ../employee_maintenance.php");
+            header("Location: employee_maintenance.php");
             exit();
         }
     } catch (PDOException $e) {
