@@ -38,11 +38,12 @@
 				// Fetch monthly attendance data for the current month and year from atlog table
 				$currentMonth = date("m");
 				$currentYear = date("Y");
-				$stmt = $pdo->prepare("SELECT employee.employee_id, employee.first_name, employee.last_name, atlog.atlog_date, atlog.am_in, atlog.am_out, atlog.pm_in, atlog.pm_out 
-									   FROM atlog 
-									   INNER JOIN employee ON atlog.emp_id = employee.employee_id
-									   WHERE MONTH(atlog.atlog_date) = :month AND YEAR(atlog.atlog_date) = :year
-									   ORDER BY employee.employee_id, atlog.atlog_date");
+				$stmt = $pdo->prepare("SELECT employee.employee_id, employee.first_name, employee.last_name, atlog.atlog_date, atlog.am_in, atlog.am_out, atlog.pm_in, atlog.pm_out, atlog.am_late, atlog.am_undertime, atlog.pm_late, atlog.pm_undertime
+                       FROM atlog 
+                       INNER JOIN employee ON atlog.emp_id = employee.employee_id
+                       WHERE MONTH(atlog.atlog_date) = :month AND YEAR(atlog.atlog_date) = :year
+                       ORDER BY employee.employee_id, atlog.atlog_date");
+
 				$stmt->bindParam(":month", $currentMonth);
 				$stmt->bindParam(":year", $currentYear);
 				$stmt->execute();
@@ -68,7 +69,21 @@
 
 						// Display employee name and start a new table
 						echo "<p>Employee Name: $employeeName</p>";
-						echo "<table><thead><tr><th>Date</th><th>AM IN</th><th>AM OUT</th><th>PM IN</th><th>PM OUT</th></tr></thead><tbody>";
+						echo "<table>
+								<thead>
+									<tr>
+										<th>Date</th>
+										<th>AM IN</th>
+										<th>AM OUT</th>
+										<th>PM IN</th>
+										<th>PM OUT</th>
+										<th>AM Late</th>
+										<th>AM Undertime</th>
+										<th>PM Late</th>
+										<th>PM Undertime</th>
+									</tr>
+								</thead>
+							<tbody>";
 					}
 
 					// Display attendance data
@@ -78,6 +93,10 @@
 					echo "<td>{$atlog['am_out']}</td>";
 					echo "<td>{$atlog['pm_in']}</td>";
 					echo "<td>{$atlog['pm_out']}</td>";
+					echo "<td>{$atlog['am_late']}</td>";
+					echo "<td>{$atlog['am_undertime']}</td>";
+					echo "<td>{$atlog['pm_late']}</td>";
+					echo "<td>{$atlog['pm_undertime']}</td>";
 					echo "</tr>";
 				}
 

@@ -16,34 +16,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pm_start = strtotime('1:00 PM');
     $pm_end = strtotime('5:00 PM');
 
-    // Initialize late and undertime variables
-    $am_late = 0;
-    $am_undertime = 0;
-    $pm_late = 0;
-    $pm_undertime = 0;
+    // Initialize late and undertime variables (in seconds)
+    $am_late_seconds = max(0, $amIn - $am_start);
+    $am_undertime_seconds = max(0, $am_end - $amOut);
+    $pm_late_seconds = max(0, $pmIn - $pm_start);
+    $pm_undertime_seconds = max(0, $pm_end - $pmOut);
 
-    // Calculate AM late and undertime in minutes
-    if ($amIn > $am_start) {
-        $am_late = round(($amIn - $am_start) / 60); // Late in minutes
-    }
-    if ($amOut < $am_end) {
-        $am_undertime = round(($am_end - $amOut) / 60); // Undertime in minutes
+    // Function to convert seconds to hours and minutes format
+    function convertToHoursMinutes($seconds) {
+        $hours = floor($seconds / 3600);
+        $minutes = floor(($seconds % 3600) / 60);
+        return sprintf('%02d:%02d', $hours, $minutes);
     }
 
-    // Calculate PM late and undertime in minutes
-    if ($pmIn > $pm_start) {
-        $pm_late = round(($pmIn - $pm_start) / 60); // Late in minutes
-    }
-    if ($pmOut < $pm_end) {
-        $pm_undertime = round(($pm_end - $pmOut) / 60); // Undertime in minutes
-    }
+    // Convert seconds to hours and minutes for late and undertime
+    $am_late = convertToHoursMinutes($am_late_seconds);
+    $am_undertime = convertToHoursMinutes($am_undertime_seconds);
+    $pm_late = convertToHoursMinutes($pm_late_seconds);
+    $pm_undertime = convertToHoursMinutes($pm_undertime_seconds);
 
     // Insert attendance data into the atlog table
     $sql = "INSERT INTO atlog (emp_id, atlog_date, am_in, am_out, pm_in, pm_out, am_late, am_undertime, pm_late, pm_undertime) 
-            VALUES (?, CURDATE(), ?, ?, ?, ?, ?, ?, ?, ?)"; // Assuming atlog_date is a date field
+            VALUES (?, CURDATE(), ?, ?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('isssiiiii', $empId, $_POST["am_in"], $_POST["am_out"], $_POST["pm_in"], $_POST["pm_out"], $am_late, $am_undertime, $pm_late, $pm_undertime);
+    // Assuming these values are correctly retrieved and calculated
+    $stmt->bind_param('issssssss', $empId, $_POST["am_in"], $_POST["am_out"], $_POST["pm_in"], $_POST["pm_out"], $am_late, $am_undertime, $pm_late, $pm_undertime);
 
     if ($stmt->execute()) {
         // Redirect to a success page or back to emp_attendance.php with success parameter

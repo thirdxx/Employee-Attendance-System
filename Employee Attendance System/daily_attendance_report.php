@@ -34,6 +34,10 @@
                 <th>AM OUT</th>
                 <th>PM IN</th>
                 <th>PM OUT</th>
+				<th>AM Late</th>
+				<th>AM Undertime</th>
+				<th>PM Late</th>
+				<th>PM Undertime</th>
             </tr>
         </thead>
         <tbody>
@@ -51,7 +55,7 @@
                 // Fetch daily attendance data for the current date with employee names from employee table
 				date_default_timezone_set('Asia/Shanghai'); // Set your timezone
                 $currentDate = date("Y-m-d");
-                $stmt = $pdo->prepare("SELECT employee.first_name, employee.last_name, atlog.am_in, atlog.am_out, atlog.pm_in, atlog.pm_out 
+                $stmt = $pdo->prepare("SELECT employee.first_name, employee.last_name, atlog.am_in, atlog.am_out, atlog.pm_in, atlog.pm_out, atlog.am_late, atlog.am_undertime, atlog.pm_late, atlog.pm_undertime 
                                        FROM atlog 
                                        INNER JOIN employee ON atlog.emp_id = employee.employee_id 
                                        WHERE atlog.atlog_date = :date");
@@ -67,6 +71,10 @@
                     echo "<td>{$atlog['am_out']}</td>";
                     echo "<td>{$atlog['pm_in']}</td>";
                     echo "<td>{$atlog['pm_out']}</td>";
+					echo "<td>{$atlog['am_late']}</td>";
+					echo "<td>{$atlog['am_undertime']}</td>";
+					echo "<td>{$atlog['pm_late']}</td>";
+					echo "<td>{$atlog['pm_undertime']}</td>";
                     echo "</tr>";
                 }
             } catch (PDOException $e) {

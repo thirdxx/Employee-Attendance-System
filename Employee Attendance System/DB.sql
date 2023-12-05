@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 30, 2023 at 07:19 AM
+-- Generation Time: Dec 05, 2023 at 06:53 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -54,10 +54,10 @@ CREATE TABLE `atlog` (
   `am_out` time DEFAULT NULL,
   `pm_in` time DEFAULT NULL,
   `pm_out` time DEFAULT NULL,
-  `am_late` int(11) DEFAULT NULL,
-  `am_undertime` int(11) DEFAULT NULL,
-  `pm_late` int(11) DEFAULT NULL,
-  `pm_undertime` int(11) DEFAULT NULL
+  `am_late` time DEFAULT NULL,
+  `am_undertime` time DEFAULT NULL,
+  `pm_late` time DEFAULT NULL,
+  `pm_undertime` time DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -65,10 +65,8 @@ CREATE TABLE `atlog` (
 --
 
 INSERT INTO `atlog` (`atlog_id`, `emp_id`, `atlog_date`, `am_in`, `am_out`, `pm_in`, `pm_out`, `am_late`, `am_undertime`, `pm_late`, `pm_undertime`) VALUES
-(1, 1, '2023-11-28', '08:00:00', '12:00:00', '01:00:00', '05:00:00', 0, 0, 0, 0),
-(2, 2, '2023-11-29', '08:15:00', '12:00:00', '01:00:00', '04:45:00', -15, 0, 0, 0),
-(3, 3, '2023-11-30', '08:20:00', '12:00:00', '01:00:00', '05:00:00', -20, 0, 0, 0),
-(4, 1, '2023-11-30', '08:05:00', '12:00:00', '01:00:00', '05:00:00', -5, 0, 0, 0);
+(32, 1, '2023-12-06', '10:02:00', '11:05:00', '15:01:00', '16:01:00', '02:02:00', '00:55:00', '02:01:00', '00:59:00'),
+(33, 2, '2023-12-06', '08:00:00', '12:00:00', '13:00:00', '17:00:00', '00:00:00', '00:00:00', '00:00:00', '00:00:00');
 
 -- --------------------------------------------------------
 
@@ -94,6 +92,29 @@ INSERT INTO `employee` (`employee_id`, `first_name`, `middle_name`, `last_name`,
 (1, 'Maureen', 'Asirit', 'Benitez', 'Tabaco City', 'mab@gmail.com', '09123456789'),
 (2, 'Amir Sebastian', 'Sallo', 'Saberon', 'Polangui', 'seby@gmail.com', '09234567891'),
 (3, 'Diogenes', 'Araojo', 'Tayam', 'Sorsogon', 'dio@gmail.com', '09345678912');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `employees`
+--
+
+CREATE TABLE `employees` (
+  `employee_id` int(11) NOT NULL,
+  `first_name` varchar(50) NOT NULL,
+  `last_name` varchar(50) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `user_type` enum('admin','employee') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `employees`
+--
+
+INSERT INTO `employees` (`employee_id`, `first_name`, `last_name`, `email`, `phone`, `password`, `user_type`) VALUES
+(1, 'Maureen', 'Benitez', 'mbn@gmail.com', '09999999999', '123', 'employee');
 
 -- --------------------------------------------------------
 
@@ -131,6 +152,12 @@ ALTER TABLE `employee`
   ADD PRIMARY KEY (`employee_id`);
 
 --
+-- Indexes for table `employees`
+--
+ALTER TABLE `employees`
+  ADD PRIMARY KEY (`employee_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -150,13 +177,19 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `atlog`
 --
 ALTER TABLE `atlog`
-  MODIFY `atlog_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `atlog_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
   MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT for table `employees`
+--
+ALTER TABLE `employees`
+  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
