@@ -1,0 +1,30 @@
+.clock {
+  text-align: center;
+  background-color: rgb(207, 233, 211); /* Set your desired background color */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle box shadow */
+  max-width: 300px; /* Set your desired maximum width */
+  margin: 0 auto; /* Center the clock horizontally */
+  margin-top: 20px;
+}
+#time {
+  font-size: 2em;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* height: 100vh; */
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+#date {
+  font-size: 1em;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* height: 100vh; */
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
