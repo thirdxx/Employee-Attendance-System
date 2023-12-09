@@ -11,13 +11,13 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Assuming you have a form that submits the email and company_id
+// Assuming you have a form that submits the user_code and user_id
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST['email'];
-    $company_id = $_POST['company_id'];
+    $user_code = $_POST['user_code'];
+    $user_id = $_POST['user_id'];
 
     // Check if the user exists in the database
-    $sql = "SELECT * FROM employee WHERE email = '$email' AND company_id = '$company_id'";
+    $sql = "SELECT * FROM employee WHERE user_code = '$user_code' AND user_id = '$user_id'";
     $result = $conn->query($sql);
 
     if ($result->num_rows == 1) {
@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         } else {
             // Redirect to employee maintenance page or other pages based on your requirement
-            header("Location: employee_dashboard.php");
+            header("Location: dashboard_employee.php");
             exit();
         }
     } else {
@@ -50,8 +50,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-        Email: <input type="text" name="email"><br>
-        Company ID: <input type="text" name="company_id"><br>
+        Username: <input type="text" name="user_code"><br>
+        Password: <input type="text" name="user_id"><br>
         <input type="submit" value="Login">
     </form>
 </body>
