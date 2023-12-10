@@ -45,13 +45,13 @@
 
             <input type="hidden" name="emp_name" id="hidden_emp_name" value=""> <!-- Hidden field to pass employee Name -->
 
-            <button type="button" onclick="submitSpecificAction('am_in_btn')">AM In</button>
+            <button type="button" onclick="submitSpecificAction('am_in')">AM In</button>
 
-            <button type="button" onclick="submitSpecificAction('am_out_btn')">AM Out</button>
+            <button type="button" onclick="submitSpecificAction('am_out')">AM Out</button>
 
-            <button type="button" onclick="submitSpecificAction('pm_in_btn')">PM In</button>
+            <button type="button" onclick="submitSpecificAction('pm_in')">PM In</button>
 
-            <button type="button" onclick="submitSpecificAction('pm_out_btn')">PM Out</button>
+            <button type="button" onclick="submitSpecificAction('pm_out')">PM Out</button>
         </form>
         </div>
         <!-- <div class="card">
@@ -64,24 +64,24 @@
     <script>
         // Function to submit the current time to the respective input field and then submit the form
         function submitSpecificAction(fieldId) {
-            const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            document.getElementById(fieldId).value = currentTime;
+        const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        document.getElementById(fieldId).value = currentTime;
 
-            // Submit the form using AJAX
-            $.ajax({
-                type: "POST",
-                url: "employee_attendance/process_attendance.php",
-                data: $('#attendanceForm').serialize(), // Serialize form data
-                success: function (response) {
-                    console.log(response);
-                    // Handle success response here if needed
-                },
-                error: function (xhr, status, error) {
-                    console.error(xhr.responseText);
-                    // Handle error response here if needed
-                }
-            });
-        }
+        // Submit the form using AJAX
+        $.ajax({
+            type: "POST",
+            url: "process_attendance.php",
+            data: $('#attendanceForm').serialize(), // Serialize form data
+            success: function (response) {
+                console.log(response);
+                // Handle success response here if needed
+            },
+            error: function (xhr, status, error) {
+                console.error(xhr.responseText);
+                // Handle error response here if needed
+            }
+        });
+    }
 
         // Function for searching employee
         function searchEmployee() {
@@ -103,8 +103,6 @@
             });
         }
 
-        // Other existing functions (updateClock, updateDate, initializeCalendar)
-
         // Event listeners for buttons (AM In, AM Out, PM In, PM Out)
         document.getElementById('am_in_btn').addEventListener('click', function () {
             submitSpecificAction('am_in');
@@ -121,6 +119,55 @@
         document.getElementById('pm_out_btn').addEventListener('click', function () {
             submitSpecificAction('pm_out');
         });
+
+        // Other existing functions (updateClock, updateDate, initializeCalendar)
+        //Real-time clock
+      function updateClock() {
+        const now = new Date();
+        const formattedTime = now.toLocaleTimeString("en-US", {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: true,
+        });
+        document.getElementById("realTime").innerText = formattedTime;
+      }
+
+        // Real date calendar
+        function updateDate() {
+            const now = new Date();
+            const options = {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            };
+            const formattedDate = now.toLocaleDateString("en-US", options);
+            document.getElementById("realDate").innerText = formattedDate;
+        }
+
+        // Calendar widget
+        function initializeCalendar() {
+            const calendarContainer = document.getElementById("calendar");
+            const calendar = new FullCalendar.Calendar(calendarContainer, {
+            initialView: "dayGridMonth",
+            events: [],
+            });
+            calendar.render();
+        }
+
+        // Update time and date every second
+        setInterval(() => {
+            updateClock();
+            updateDate();
+        }, 1000);
+
+        // Initialize calendar
+        initializeCalendar();
+
+        // Initial update
+        updateClock();
+        updateDate();
     </script>
 </body>
 </html>
