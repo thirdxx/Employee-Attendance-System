@@ -1,0 +1,49 @@
+/* .cards-container { */
+  /* display: flex;
+  justify-content: space-between;
+  margin: 20px auto; */
+  /* display: grid;
+  grid-template-columns: 2fr 2fr; */
+}
+/* .card1:last-child {
+  grid-column: 1;
+} */
+.card1 {
+  width: 400px;
+  padding: 20px;
+  background-color: #385723;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  /* margin-left: 350px; */
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+}
+.card {
+  /* background-image: url("maintenance.png");
+  background-size: contain;
+  background-position: center;
+  border: 2px #0e4700; */
+  /* margin: 0 auto; */
+  margin-top: 20px;
+  width: 250px;
+  height: 100px;
+  background-color: #b6dfac;
+  color: rgb(8, 39, 17);
+  border-radius: 20px;
+  border-color: #092b07;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+/* Add a hover effect */
+.card:hover {
+  background-color: #092b07;
+  color: #b6dfac;
+}

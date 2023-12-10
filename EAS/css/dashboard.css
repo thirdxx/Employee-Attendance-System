@@ -1,0 +1,70 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+.sidebar {
+  width: 250px;
+  height: 100%;
+  background-color: #f0f0f0;
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding-top: 20px;
+}
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+.sidebar ul li {
+  padding: 10px;
+}
+.sidebar ul li a {
+  text-decoration: none;
+  color: #333;
+}
+.sidebar ul li a i {
+  margin-right: 10px;
+}
+.logout-btn {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+.content {
+  margin-left: 250px;
+  padding: 20px;
+}
+/* CSS for the centered h1 */
+.title-container {
+  text-align: center;
+  padding: 20px;
+  background-color: #f0f0f0; /* Your desired background color */
+}
+/* Style for the h1 */
+.title-container h1 {
+  margin: 0;
+  color: #333; /* Your desired text color */
+}
+h2 {
+  text-align: center;
+}
+.card1 {
+  width: 200px;
+  height: 150px;
+  background-color: #0f3b20;
+  color: white;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+/* Add a hover effect */
+.card1:hover {
+  background-color: #092b07;
+}

@@ -1,0 +1,50 @@
+/* Table styles */
+		table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .action-btns button {
+            margin-right: 5px;
+        }
+        h2 {
+            text-align: center;
+        }
+/* Button styles */
+		.add-btn {
+			float: right;				
+            background-color: #333333;
+            padding: 10px 20px;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+			margin-bottom: 30px;
+        }
+		
+		.edit-btn, .delete-btn {
+            padding: 5px 10px;
+            margin-right: 8px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .edit-btn {
+            background-color: #333; /* Edit button color */
+        }
+
+        .delete-btn {
+            background-color: #333; /* Delete button color */
+        }

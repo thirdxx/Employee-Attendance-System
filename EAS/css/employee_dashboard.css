@@ -1,0 +1,132 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-image: url("bg.jpg");
+  background-size: cover; /* Ensures the image covers the entire background */
+  background-position: center; /* Centers the background image */
+  background-repeat: no-repeat; /* Prevents the background image from repeating */
+}
+.sidebar {
+  width: 250px;
+  height: 100%;
+  background-color: #f0f0f0;
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding-top: 20px;
+}
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+.sidebar ul li {
+  padding: 10px;
+}
+.sidebar ul li a {
+  text-decoration: none;
+  color: #333;
+}
+.sidebar ul li a i {
+  margin-right: 10px;
+}
+.logout-btn {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+.content {
+  margin-left: 250px;
+  padding: 20px;
+}
+/* CSS for the centered h1 */
+.title-container {
+  text-align: center;
+  padding: 20px;
+  background-color: #d0e9bf; /* Your desired background color */
+  border-radius: 5px;
+}
+/* Style for the h1 */
+.title-container h1 {
+  margin: 0;
+  color: #1e2c14;
+}
+h2 {
+  text-align: center;
+}
+
+.card {
+  width: 400px;
+  padding: 20px;
+  background-color: #385723;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  /* margin-left: 350px; */
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+}
+.horizontal-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.card h1 {
+  color: #ffffff;
+  font-size: 30px;
+  text-align: left;
+  margin-bottom: -10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.card h3 {
+  size: 50px;
+}
+
+.card p {
+  color: #f7f7f7;
+  text-align: left;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#realTime {
+  font-size: 40px;
+  margin-bottom: -10px;
+  font-weight: 500;
+  text-align: center;
+}
+#realDate {
+  font-size: 18px;
+  margin-bottom: 35px;
+  text-align: center;
+}
+
+#calendar {
+  width: 100%;
+  text-align: center;
+}
+
+img {
+  max-width: 45%; /* Set the maximum width to 100% of the container */
+  height: auto; /* Maintain the aspect ratio */
+  margin-left: -10px;
+}
+
+.calendar-card {
+  color: #ffffff;
+  width: 400px;
+  padding: 20px;
+  margin: 5px;
+  /* margin-left: 300px; */
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+}
