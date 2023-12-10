@@ -76,12 +76,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <title>Login</title>
     <link rel="stylesheet" type="text/css" href="../css/login.css"> <!-- Linking the external CSS -->
+	<script>
+        function validateForm() {
+            var userCode = document.forms["loginForm"]["user_code"].value;
+            var userId = document.forms["loginForm"]["user_id"].value;
+
+            // Regular expression pattern to allow only alphanumeric characters
+            var alphanumeric = /^[a-zA-Z0-9]+$/;
+
+            if (!alphanumeric.test(userCode)) {
+                alert("Username should only contain alphanumeric characters (no special characters)");
+                return false;
+            }
+
+            if (userId.length < 8) {
+                alert("Password must be at least 8 characters long");
+                return false;
+            }
+        }
+    </script>
 </head>
 <body>
-    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-        Username: <input type="text" name="user_code"><br>
-        Password: <input type="text" name="user_id"><br>
+    <form name="loginForm" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" onsubmit="return validateForm()">
+        Username: <input type="text" name="user_code" required><br>
+        Password: <input type="password" name="user_id" minlength="8" required><br>
         <input type="submit" value="Login">
     </form>
 </body>
 </html>
+	
+	
