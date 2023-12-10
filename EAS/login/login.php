@@ -11,9 +11,6 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Set the timezone to GMT+8:00
-date_default_timezone_set('Asia/Singapore');
-
 // Assuming you have a form that submits the user_code and user_id
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user_code = $_POST['user_code'];
@@ -26,41 +23,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result->num_rows == 1) {
         // User exists, fetch user details
         $row = $result->fetch_assoc();
-        $employee_name = $row['name'];
+        $department = $row['department'];
 
-        // Check if the employee is already marked as "Active"
-        $activeCheckSql = "SELECT * FROM employee WHERE name = '$employee_name' AND status = 'Active'";
-        $activeCheckResult = $conn->query($activeCheckSql);
-
-        if ($activeCheckResult->num_rows == 0) {
-            // Log login activity in real-time
-            $login_date = date("Y-m-d");
-            $login_time = date("H:i:s");
-
-            // Update the status of the existing employee record
-            $updateStatusSql = "UPDATE employee 
-                                SET login_date = '$login_date', login_time = '$login_time', status = 'Active'
-                                WHERE name = '$employee_name'";
-            $conn->query($updateStatusSql);
-
-            // Set session variables
-            session_start();
-            $_SESSION['user_code'] = $user_code;
-            $_SESSION['user_id'] = $user_id;
-
-            // Check if the user is an admin
-            if ($row['department'] == 'admin') {
-                // Redirect to admin system menu page
-                header("Location: ../dashboard.php");
-                exit();
-            } else {
-                // Redirect to employee maintenance page or other pages based on your requirement
-                header("Location: ../dashboard_employee.php");
-                exit();
-            }
+        // Check if the user is an admin
+        if ($department == 'admin') {
+            // Redirect to admin system menu page
+            header("Location: admin_system_menu.php");
+            exit();
         } else {
-            // Employee is already marked as "Active", handle accordingly (e.g., show an error message)
-            header("Location: login.php?error=AlreadyLoggedIn");
+            // Redirect to employee maintenance page or other pages based on your requirement
+            header("Location: dashboard_employee.php");
             exit();
         }
     } else {
@@ -75,12 +47,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
 <head>
     <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="../css/login.css"> <!-- Linking the external CSS -->
+    <script>
+        function validateForm() {
+            var userCode = document.forms["loginForm"]["user_code"].value;
+            var userId = document.forms["loginForm"]["user_id"].value;
+
+            // Regular expression pattern to allow only alphanumeric characters
+            var alphanumeric = /^[a-zA-Z0-9]+$/;
+
+            if (!alphanumeric.test(userCode)) {
+                alert("Username should only contain alphanumeric characters (no special characters)");
+                return false;
+            }
+
+            if (userId.length < 8) {
+                alert("Password must be at least 8 characters long");
+                return false;
+            }
+        }
+    </script>
 </head>
 <body>
-    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-        Username: <input type="text" name="user_code"><br>
-        Password: <input type="text" name="user_id"><br>
+    <form name="loginForm" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" onsubmit="return validateForm()">
+        Username: <input type="text" name="user_code" required><br>
+        Password: <input type="password" name="user_id" minlength="8" required><br>
         <input type="submit" value="Login">
     </form>
 </body>
