@@ -23,45 +23,36 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Get the time ranges
-$start_am_in = strtotime("08:00:00"); // 8:00 AM
-$end_am_out = strtotime("12:00:00"); // 12:00 PM
-$start_pm_in = strtotime("13:00:00"); // 1:00 PM
-$end_pm_out = strtotime("17:00:00"); // 5:00 PM
+$am_late = '00:00:00';
+$pm_late = '00:00:00';
+$am_undertime = '00:00:00';
+$pm_undertime = '00:00:00';
 
-// Convert user inputs to timestamps for comparison
-$am_in_time = strtotime($am_in);
-$am_out_time = strtotime($am_out);
-$pm_in_time = strtotime($pm_in);
-$pm_out_time = strtotime($pm_out);
+// Check if the time falls within the working hours (8 AM to 12 PM and 1 PM to 5 PM)
+if (
+    $am_in >= '08:00:00' && $am_in <= '12:00:00' &&
+    $pm_in >= '13:00:00' && $pm_in <= '17:00:00' &&
+    $am_out >= '08:00:00' && $am_out <= '12:00:00' &&
+    $pm_out >= '13:00:00' && $pm_out <= '17:00:00'
+) {
+    $am_in_time = new DateTime($am_in);
+    $am_out_time = new DateTime($am_out);
+    $pm_in_time = new DateTime($pm_in);
+    $pm_out_time = new DateTime($pm_out);
 
-// Function to calculate time difference in HH:MM:SS format
-function calculateTimeDifference($start, $end)
-{
-    $diff = $end - $start;
-    $hours = floor($diff / 3600);
-    $minutes = floor(($diff % 3600) / 60);
-    $seconds = $diff % 60;
+    $am_late_interval = $am_in_time->diff(new DateTime('08:00:00'));
+    $pm_late_interval = $pm_in_time->diff(new DateTime('13:00:00'));
 
-    return sprintf("%02d:%02d:%02d", $hours, $minutes, $seconds);
-}
+    $am_undertime_interval = new DateTime('12:00:00');
+    $am_undertime_interval->sub($am_out_time->diff($am_in_time));
 
-// Calculate AM Late and Undertime
-if ($am_in !== '' && $am_out !== '') {
-    $am_late = calculateTimeDifference($start_am_in, $am_in_time);
-    $am_undertime = calculateTimeDifference($am_out_time, $end_am_out);
-} else {
-    $am_late = '';
-    $am_undertime = '';
-}
+    $pm_undertime_interval = new DateTime('17:00:00'); // Assuming the end work time is 5:00 PM
+    $pm_undertime_interval->sub($pm_out_time->diff($pm_in_time));
 
-// Calculate PM Late and Undertime
-if ($pm_in !== '' && $pm_out !== '') {
-    $pm_late = calculateTimeDifference($start_pm_in, $pm_in_time);
-    $pm_undertime = calculateTimeDifference($pm_out_time, $end_pm_out);
-} else {
-    $pm_late = '';
-    $pm_undertime = '';
+    $am_late = $am_late_interval->format("%H:%I:%S");
+    $pm_late = $pm_late_interval->format("%H:%I:%S");
+    $am_undertime = $am_undertime_interval->format("%H:%I:%S");
+    $pm_undertime = $pm_undertime_interval->format("%H:%I:%S");
 }
 
 // Check if an entry already exists for the same emp_id on the same date
@@ -75,23 +66,25 @@ if ($result_check->num_rows > 0) {
 
     // Update the existing record's AM OUT and PM OUT values if provided
     $update_sql = "";
-	if ($am_in !== '') {
-		$update_sql .= "UPDATE atlog SET am_in = '$am_in', am_late = '$am_late', am_undertime = '$am_undertime' WHERE atlog_id = '$atlog_id';";
-	}
-	if ($am_out !== '') {
-		$update_sql .= "UPDATE atlog SET am_out = '$am_out', am_late = '$am_late', am_undertime = '$am_undertime' WHERE atlog_id = '$atlog_id';";
-	}
-	if ($pm_in !== '') {
-		$update_sql .= "UPDATE atlog SET pm_in = '$pm_in', pm_late = '$pm_late', pm_undertime = '$pm_undertime' WHERE atlog_id = '$atlog_id';";
-	}
-	if ($pm_out !== '') {
-		$update_sql .= "UPDATE atlog SET pm_out = '$pm_out', pm_late = '$pm_late', pm_undertime = '$pm_undertime' WHERE atlog_id = '$atlog_id';";
-	}
+    if ($am_in !== '') {
+        $update_sql .= "UPDATE atlog SET am_in = '$am_in', am_late = '$am_late' WHERE atlog_id = '$atlog_id';";
+    }
+    if ($pm_in !== '') {
+        $update_sql .= "UPDATE atlog SET pm_in = '$pm_in', pm_late = '$pm_late' WHERE atlog_id = '$atlog_id';";
+    }
+    if ($am_out !== '') {
+        $update_sql .= "UPDATE atlog SET am_out = '$am_out', am_undertime = '$am_undertime' WHERE atlog_id = '$atlog_id';";
+    }
+    if ($pm_out !== '') {
+        $update_sql .= "UPDATE atlog SET pm_out = '$pm_out', pm_undertime = '$pm_undertime' WHERE atlog_id = '$atlog_id';";
+    }
 
     // Execute the update queries
     if ($update_sql !== "") {
         if ($conn->multi_query($update_sql) === TRUE) {
-            echo "<script>window.location.href = '../emp_attendance.php';</script>";
+            // Redirect to a page after successful update
+            header("Location: ../emp_attendance.php");
+            exit();
         } else {
             echo "Error updating record: " . $conn->error;
         }
@@ -103,9 +96,10 @@ if ($result_check->num_rows > 0) {
     $insert_sql = "INSERT INTO atlog (am_in, am_out, pm_in, pm_out, emp_id, atlog_date, am_late, am_undertime, pm_late, pm_undertime)
                VALUES ('$am_in', '$am_out', '$pm_in', '$pm_out', '$emp_id', '$atlog_date', '$am_late', '$am_undertime', '$pm_late', '$pm_undertime')";
 
-
     if ($conn->query($insert_sql) === TRUE) {
-        echo "<script>window.location.href = '../emp_attendance.php';</script>";
+        // Redirect to a page after successful insertion
+        header("Location: ../emp_attendance.php");
+        exit();
     } else {
         echo "Error: " . $insert_sql . "<br>" . $conn->error;
     }
