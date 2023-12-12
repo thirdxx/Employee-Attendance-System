@@ -23,37 +23,58 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$am_late = '00:00:00';
-$pm_late = '00:00:00';
-$am_undertime = '00:00:00';
-$pm_undertime = '00:00:00';
+// Define work schedule constants (you can adjust these according to your company's policies)
+$am_in_time = strtotime('08:00:00'); // Assuming AM work starts at 8:00 AM
+$am_out_time = strtotime('12:00:00'); // Assuming AM work ends at 12:00 PM
+$pm_in_time = strtotime('13:00:00'); // Assuming PM work starts at 1:00 PM
+$pm_out_time = strtotime('17:00:00'); // Assuming PM work ends at 5:00 PM
 
-// Check if the time falls within the working hours (8 AM to 12 PM and 1 PM to 5 PM)
-if (
-    $am_in >= '08:00:00' && $am_in <= '12:00:00' &&
-    $pm_in >= '13:00:00' && $pm_in <= '17:00:00' &&
-    $am_out >= '08:00:00' && $am_out <= '12:00:00' &&
-    $pm_out >= '13:00:00' && $pm_out <= '17:00:00'
-) {
-    $am_in_time = new DateTime($am_in);
-    $am_out_time = new DateTime($am_out);
-    $pm_in_time = new DateTime($pm_in);
-    $pm_out_time = new DateTime($pm_out);
+// Convert user-inputted time strings to UNIX timestamps for comparison
+$am_in_timestamp = strtotime($am_in);
+$am_out_timestamp = strtotime($am_out);
+$pm_in_timestamp = strtotime($pm_in);
+$pm_out_timestamp = strtotime($pm_out);
 
-    $am_late_interval = $am_in_time->diff(new DateTime('08:00:00'));
-    $pm_late_interval = $pm_in_time->diff(new DateTime('13:00:00'));
-
-    $am_undertime_interval = new DateTime('12:00:00');
-    $am_undertime_interval->sub($am_out_time->diff($am_in_time));
-
-    $pm_undertime_interval = new DateTime('17:00:00'); // Assuming the end work time is 5:00 PM
-    $pm_undertime_interval->sub($pm_out_time->diff($pm_in_time));
-
-    $am_late = $am_late_interval->format("%H:%I:%S");
-    $pm_late = $pm_late_interval->format("%H:%I:%S");
-    $am_undertime = $am_undertime_interval->format("%H:%I:%S");
-    $pm_undertime = $pm_undertime_interval->format("%H:%I:%S");
+// Calculate lateness and undertime for AM shift
+if ($am_in_timestamp > $am_in_time && $am_in_timestamp < $am_out_time) {
+    $am_late = $am_in_timestamp - $am_in_time; // Late arrival in seconds
+} else {
+    $am_late = 0; // Reset late if no late for AM shift
 }
+
+if ($am_out_timestamp < $am_out_time && $am_out_timestamp > $am_in_time) {
+    $am_undertime = $am_out_time - $am_out_timestamp; // Undertime in seconds
+} else {
+    $am_undertime = 0; // Reset undertime if no undertime for AM shift
+} 
+
+// Calculate lateness and undertime for PM shift
+if ($pm_in_timestamp > $pm_in_time && $pm_in_timestamp < $pm_out_time) {
+    $pm_late = $pm_in_timestamp - $pm_in_time; // Late arrival in seconds
+} else {
+    $pm_late = 0; // Reset late if no late for PM shift
+}
+
+if ($pm_out_timestamp < $pm_out_time && $pm_out_timestamp > $pm_in_time) {
+    $pm_undertime = $pm_out_time - $pm_out_timestamp; // Undertime in seconds
+} else {
+    $pm_undertime = 0; // Reset undertime if no undertime for PM shift
+}
+
+// Convert seconds to human-readable format (HH:MM:SS)
+function formatTime($seconds) {
+    $hours = floor($seconds / 3600);
+    $minutes = floor(($seconds % 3600) / 60);
+    $seconds = $seconds % 60;
+
+    return sprintf("%02d:%02d:%02d", $hours, $minutes, $seconds);
+}
+
+// Apply the formatted late and undertime to the query
+$am_late_formatted = formatTime($am_late);
+$am_undertime_formatted = formatTime($am_undertime);
+$pm_late_formatted = formatTime($pm_late);
+$pm_undertime_formatted = formatTime($pm_undertime);
 
 // Check if an entry already exists for the same emp_id on the same date
 $sql_check = "SELECT * FROM atlog WHERE emp_id = '$emp_id' AND atlog_date = '$atlog_date'";
@@ -67,16 +88,16 @@ if ($result_check->num_rows > 0) {
     // Update the existing record's AM OUT and PM OUT values if provided
     $update_sql = "";
     if ($am_in !== '') {
-        $update_sql .= "UPDATE atlog SET am_in = '$am_in', am_late = '$am_late' WHERE atlog_id = '$atlog_id';";
-    }
-    if ($pm_in !== '') {
-        $update_sql .= "UPDATE atlog SET pm_in = '$pm_in', pm_late = '$pm_late' WHERE atlog_id = '$atlog_id';";
+        $update_sql .= "UPDATE atlog SET am_in = '$am_in', am_late = '$am_late_formatted' WHERE atlog_id = '$atlog_id';";
     }
     if ($am_out !== '') {
-        $update_sql .= "UPDATE atlog SET am_out = '$am_out', am_undertime = '$am_undertime' WHERE atlog_id = '$atlog_id';";
+        $update_sql .= "UPDATE atlog SET am_out = '$am_out', am_undertime = '$am_undertime_formatted' WHERE atlog_id = '$atlog_id';";
+    }
+    if ($pm_in !== '') {
+        $update_sql .= "UPDATE atlog SET pm_in = '$pm_in', pm_late = '$pm_late_formatted' WHERE atlog_id = '$atlog_id';";
     }
     if ($pm_out !== '') {
-        $update_sql .= "UPDATE atlog SET pm_out = '$pm_out', pm_undertime = '$pm_undertime' WHERE atlog_id = '$atlog_id';";
+        $update_sql .= "UPDATE atlog SET pm_out = '$pm_out', pm_undertime = '$pm_undertime_formatted' WHERE atlog_id = '$atlog_id';";
     }
 
     // Execute the update queries
@@ -94,7 +115,7 @@ if ($result_check->num_rows > 0) {
 } else {
     // Insert a new entry if no existing entry found
     $insert_sql = "INSERT INTO atlog (am_in, am_out, pm_in, pm_out, emp_id, atlog_date, am_late, am_undertime, pm_late, pm_undertime)
-               VALUES ('$am_in', '$am_out', '$pm_in', '$pm_out', '$emp_id', '$atlog_date', '$am_late', '$am_undertime', '$pm_late', '$pm_undertime')";
+               VALUES ('$am_in', '$am_out', '$pm_in', '$pm_out', '$emp_id', '$atlog_date', '$am_late_formatted', '$am_undertime_formatted', '$pm_late_formatted', '$pm_undertime_formatted')";
 
     if ($conn->query($insert_sql) === TRUE) {
         // Redirect to a page after successful insertion
