@@ -45,7 +45,7 @@
 
             <input type="hidden" name="emp_name" id="hidden_emp_name" value=""> <!-- Hidden field to pass employee Name -->
 
-            <button type="button" onclick="submitSpecificAction('am_in')">AM In</button>
+            <button type="button" id="time-button" onclick="submitSpecificAction('am_in')">AM In</button>
 
             <button type="button" onclick="submitSpecificAction('am_out')">AM Out</button>
 
@@ -54,12 +54,9 @@
             <button type="button" onclick="submitSpecificAction('pm_out')">PM Out</button>
         </form>
         </div>
-        <!-- <div class="card">
-      <p id="realTime"></p>
-      <p id="realDate"></p>
-      <div id="calendar"></div>
-    </div> -->
     </div>
+</div>
+<button type="button" onclick="employee_dashboard()">Back</button>
 
     <script>
         // Function to submit the current time to the respective input field and then submit the form
@@ -136,6 +133,10 @@
       // Initial update
       updateClock();
       updateDate();
+
+      function employee_dashboard() {
+    window.location.href = 'dashboard_employee.php';
+  }
     </script>
 </body>
 </html>

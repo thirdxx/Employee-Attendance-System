@@ -63,6 +63,28 @@ if ($conn->query($sql) === TRUE) {
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }
+// Calculate attendance status
+$attendanceStatus = calculateAttendanceStatus($amIn, $amOut, $pmIn, $pmOut);
+
+// Update the attendance status in the employee table
+$updateStatusSql = "UPDATE employee SET attendance_status = :attendanceStatus WHERE emp_id = :employeeId";
+$updateStatusStmt = $pdo->prepare($updateStatusSql);
+$updateStatusStmt->bindParam(':attendanceStatus', $attendanceStatus);
+$updateStatusStmt->bindParam(':employeeId', $employeeId);
+$updateStatusStmt->execute();
+
+// Rest of the code (existing code)...
+
+// Function to calculate attendance status based on time entries
+function calculateAttendanceStatus($amIn, $amOut, $pmIn, $pmOut) {
+    // You need to define your logic to determine the status based on time entries
+    // Example logic: If all time entries are present, consider 'Present'; else, consider 'Absent'
+    if (!empty($amIn) && !empty($amOut) && !empty($pmIn) && !empty($pmOut)) {
+        return 'Present';
+    } else {
+        return 'Absent';
+    }
+}
 
 // Close the database connection
 $conn->close();
