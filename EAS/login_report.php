@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome CDN -->
-    <link rel="stylesheet" href="css/dashboard.css"> <!-- Assuming this contains your main styles -->
+    <link rel="stylesheet" href="css/dashboard_admin.css"> <!-- Assuming this contains your main styles -->
     <link rel="stylesheet" href="css/login_report.css"> <!-- Link to the separate CSS file -->
     <title>Login Report</title>
 </head>
@@ -11,7 +11,7 @@
 
 <!-- Sidebar -->
 <div class="sidebar">
-    <h2>Logo here</h2>
+    <h2>BTS</h2>
     <ul>
         <li><a href="dashboard.php"><i class="fas fa-home"></i>Dashboard</a></li>
         <li><a href="employee_maintenance.php"><i class="fas fa-user-cog"></i>Employee Maintenance</a></li>

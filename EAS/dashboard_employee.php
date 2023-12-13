@@ -3,16 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome CDN -->
-    <link rel="stylesheet" href="css/employee_dashboard.css">
+    <link rel="stylesheet" href="css/dashboard_employee.css">
+    <!-- <link rel="stylesheet" href="css/admin_dashboard.css"> -->
     <script src="clock/calendar.js"></script>
-    <title>Main Page</title>
+    <title>Employee Dashboard</title>
 </head>
-<body>
+<body>    
 
 <div class="sidebar">
-    <h2>Logo here</h2>
+    <h2>BTS</h2>
     <ul>
         <li><a href="dashboard_employee.php"><i class="fas fa-home"></i>Dashboard</a></li>
+        <li><a href="account_info.php"><i class="fa fa-user-circle"></i>Account Information</a></li>
         <li><a href="emp_attendance.php"><i class="fas fa-user-check"></i>Employee Attendance</a></li>
     </ul>
     <a href="login/logout.php" class="logout-btn"><i class="fas fa-sign-out-alt"></i>Logout</a>

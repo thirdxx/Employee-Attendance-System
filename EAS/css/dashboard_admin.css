@@ -11,7 +11,7 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  background-color: #2c3e50;
+  background-color: #2c5034;
   padding-top: 20px;
 }
 
@@ -62,15 +62,34 @@ body {
 }
 
 .title-container {
-  background-color: #a1f5ba;
+  background-color: #d4e7da;
   border-radius: 10px;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+  height: 60px;
+}
+
+.moving-heading {
+  white-space: nowrap;
+  overflow: hidden;
+  box-sizing: border-box;
+  animation: marquee 10s linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }
 
 .title-container h1 {
   color: #0a552b;
-  margin-top: -10px;
-  padding: 10px;
+  margin-top: 5px;
+  padding: 5px;
 }
 
 .cards-container {
@@ -80,8 +99,8 @@ body {
 }
 
 .card {
-  color: #6086a0;
-  background-color: #66cc94;
+  color: #053818;
+  background-color: #c8e0c8;
   padding: 20px;
   border-radius: 20px;
   cursor: pointer;
@@ -91,19 +110,21 @@ body {
 }
 
 .card h3 {
-  color: #02161b;
   text-align: center;
 }
 
 .card:hover {
-  background-color: #19384d;
+  color: #b7eeb5;
+  background-color: #084e17;
 }
 
 .count-container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  /* justify-content: space-between;
+  align-items: center; */
+  width: 1000px;
   padding: 10px;
+  text-align: center;
 }
 
 .empCountTotal,
@@ -111,11 +132,10 @@ body {
 .empCountAbsent,
 .empCountLate {
   margin: 0;
-  background-color: #02161b;
+  background-color: #021b03;
   border-radius: 10px;
   color: white;
   padding: 20px;
-  max-width: 200px;
   font-size: 16px;
   flex: 1;
 }
@@ -124,13 +144,13 @@ body {
   margin-bottom: -10px;
   font-weight: 500;
   text-align: center;
-  color: #f1f1f1;
+  color: #05351f;
 }
 #realDate {
   font-size: 18px;
   margin-bottom: 35px;
   text-align: center;
-  color: #f1f1f1;
+  color: #05351f;
 }
 .cardtime-container {
   display: flex;
@@ -140,28 +160,26 @@ body {
 }
 .welcomecard {
   width: 450px;
-  color: white;
+  color: rgb(33, 63, 5);
   height: 40px;
   padding: 20px;
-  background-color: #02161b;
+  background-color: #96c09b;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-top: 30px;
+  margin-top: 20px;
   margin-bottom: -120px;
   /* margin-left: 350px; */
-  text-align: left;
+  text-align: center;
   justify-content: center;
   align-items: center;
   border-radius: 20px;
-  font-size: 25px;
-  font-weight: 400;
-}
-span {
-  font-size: 15px;
+  font-size: 30px;
+  font-weight: 600;
 }
 .cardtime {
   width: 450px;
   padding: 20px;
-  background-color: #02161b;
+  color: rgb(33, 63, 5);
+  background-color: #96c09b;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-top: 20px;
   margin-bottom: -100px;
@@ -172,7 +190,7 @@ span {
   border-radius: 20px;
 }
 .calendar-card {
-  color: #ffffff;
+  color: rgb(33, 63, 5);
   width: 450px;
   padding: 20px;
   /* margin-left: 300px; */
