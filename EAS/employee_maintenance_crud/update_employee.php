@@ -16,16 +16,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $name = $_POST['name'];
         $department = $_POST['department'];
         $email = $_POST['email'];
+        $phone = $_POST['phone'];
+        $address = $_POST['address'];
         $position = $_POST['position'];
         $status = $_POST['status'];
         $userId = $_POST['user_id'];
 
         // Update employee details in the database
-        $stmt = $pdo->prepare("UPDATE employee SET user_code = :user_code, name = :name, department = :department, email = :email, position = :position, user_id = :user_id WHERE emp_id = :emp_id");
+        $stmt = $pdo->prepare("UPDATE employee SET user_code = :user_code, name = :name, department = :department, email = :email, phone = :phone, address = :address, position = :position, user_id = :user_id WHERE emp_id = :emp_id");
         $stmt->bindParam(":user_code", $userCode);
         $stmt->bindParam(":name", $name);
         $stmt->bindParam(":department", $department);
         $stmt->bindParam(":email", $email);
+        $stmt->bindParam(":phone", $phone);
+        $stmt->bindParam(":address", $address);
         $stmt->bindParam(":position", $position);
         $stmt->bindParam(":user_id", $userId);
         $stmt->bindParam(":emp_id", $empId);

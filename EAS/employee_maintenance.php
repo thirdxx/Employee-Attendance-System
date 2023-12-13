@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Employee Maintenance</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Icons -->
-    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/dashboard_admin.css">
 	<link rel="stylesheet" href="css/employee_maintenance.css">
 	<style>
 		.add-btn {
@@ -40,7 +40,7 @@
 
 <!-- Sidebar from main.php -->
 <div class="sidebar">
-    <h2>Logo here</h2>
+    <h2>BTS</h2>
     <ul>
         <li><a href="dashboard.php"><i class="fas fa-home"></i>Dashboard</a></li>
         <li><a href="employee_maintenance.php"><i class="fas fa-user-cog"></i>Employee Maintenance</a></li>
@@ -66,6 +66,8 @@
                 <th>Name</th>
                 <th>Department</th>
                 <th>Email</th>
+                <th>Phone</th>
+                <th>Address</th>
                 <th>Position</th>
                 <th>User ID</th>
                 <th>Actions</th>
@@ -93,6 +95,8 @@
                     echo "<td>{$employee['name']}</td>";
                     echo "<td>{$employee['department']}</td>";
                     echo "<td>{$employee['email']}</td>";
+                    echo "<td>{$employee['phone']}</td>";
+                    echo "<td>{$employee['address']}</td>";
                     echo "<td>{$employee['position']}</td>";
                     echo "<td>{$employee['user_id']}</td>";
                     echo "<td class='action-btns'>

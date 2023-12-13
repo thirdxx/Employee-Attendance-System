@@ -11,6 +11,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['name'];
     $department = $_POST['department'];
     $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    $address = $_POST['address'];
     $position = $_POST['position'];
     $userId = $_POST['user_id'];
 
@@ -19,11 +21,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         // Insert new employee into the database
-        $stmt = $pdo->prepare("INSERT INTO employee (user_code, name, department, email, position, user_id) VALUES (:user_code, :name, :department, :email, :position, :user_id)");
+        $stmt = $pdo->prepare("INSERT INTO employee (user_code, name, department, email, phone, address, position, user_id) VALUES (:user_code, :name, :department, :email, :phone, :address, :position, :user_id)");
         $stmt->bindParam(":user_code", $userCode);
         $stmt->bindParam(":name", $name);
         $stmt->bindParam(":department", $department);
         $stmt->bindParam(":email", $email);
+        $stmt->bindParam(":phone", $phone);
+        $stmt->bindParam(":address", $address);
         $stmt->bindParam(":position", $position);
         $stmt->bindParam(":user_id", $userId);
         $stmt->execute();
@@ -123,6 +127,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         <label for="email">Email:</label>
         <input type="text" name="email" id="email" required><br>
+
+        <label for="phone">Phone:</label>
+        <input type="text" name="phone" id="phone" required><br>
+
+        <label for="address">Address:</label>
+        <input type="text" name="address" id="address" required><br>
         
         <label for="position">Position:</label>
         <input type="text" name="position" id="position" required><br>
