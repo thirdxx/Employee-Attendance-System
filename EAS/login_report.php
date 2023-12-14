@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome CDN -->
-    <link rel="stylesheet" href="css/dashboard_admin.css"> <!-- Assuming this contains your main styles -->
+    <link rel="stylesheet" href="css/dashboard_admin_test.css"> <!-- Assuming this contains your main styles -->
     <link rel="stylesheet" href="css/login_report.css"> <!-- Link to the separate CSS file -->
     <title>Login Report</title>
 </head>
@@ -39,14 +39,7 @@
         </thead>
         <tbody>
             <?php
-            // Connect to the database
-            $servername = "localhost";
-            $username = "root";
-            $password = "";
-            $dbname = "EmpAttendanceSystem";
-
-            $conn = new mysqli($servername, $username, $password, $dbname);
-
+            include "connect.php";
             // Check the connection
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);

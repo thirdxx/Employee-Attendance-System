@@ -5,7 +5,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome CDN -->
     <!-- <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/dashboard_content.css"> -->
-    <link rel="stylesheet" href="css/dashboard_admin.css">
+    <!-- <link rel="stylesheet" href="css/dashboard_admin.css"> -->
+    <link rel="stylesheet" href="css/dashboard_admin_test.css">
     <link rel="stylesheet" href="clock/clock.css">
     <script src="clock/calendar.js"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.min.js"></script>
@@ -31,9 +32,9 @@
 <div class="content">
     <!-- Container for the colored h1 -->
     <div class="title-container">
-        <h1 class="moving-heading">BTS Productions Inc. Employee Attendance System</h1>
+        <h1 class="moving-heading">"AICP Nominee BTS Productions Inc."</h1>
     </div>
-    <p class="welcomecard">Welcome back Admin!</p>
+    <!-- <p class="welcomecard">Welcome back Admin!</p> -->
     <div class="cardtime-container">
         <div class="cardtime">
       <p id="realTime"></p>

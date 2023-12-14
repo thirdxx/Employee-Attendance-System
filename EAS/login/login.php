@@ -1,11 +1,12 @@
 <?php
 // Connect to the database
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "EmpAttendanceSystem";
+// $servername = "localhost";
+// $username = "root";
+// $password = "";
+// $dbname = "EmpAttendanceSystem";
+include "../connect.php";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+// $conn = new mysqli($servername, $username, $password, $dbname);
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -75,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
 <head>
     <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="../css/login.css"> <!-- Linking the external CSS -->
+    <link rel="stylesheet" type="text/css" href="../css/ad_login.css"> <!-- Linking the external CSS -->
 	<script>
         function validateForm() {
             var userCode = document.forms["loginForm"]["user_code"].value;
@@ -97,12 +98,55 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </script>
 </head>
 <body>
+    <!-- <h2>Login</h2>
     <form name="loginForm" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" onsubmit="return validateForm()">
-        Username: <input type="text" name="user_code" required><br>
-        Password: <input type="password" name="user_id" minlength="8" required><br>
+        <div class="user-box"><input type="text" name="user_code" required><br> <label>Username</label>
+       <div class="user-box"><input type="password" name="user_id" minlength="8" required><label>Password</label><br>
         <input type="submit" value="Login">
-    </form>
+    </form> -->
+    <div class="login-box">
+  <h2>Login</h2>
+  <form name="loginForm" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" onsubmit="return validateForm()">
+    <div class="user-box">
+      <input type="text" name="user_code" required>
+      <label>Username</label>
+    </div>
+    <div class="user-box">
+      <input type="password" name="user_id" minlength="8" required>
+      <label>Password</label>
+    </div>
+    <a>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <input class="click" type="submit" value="Login">
+    </a>
+  </form>
+</div>
+	
+
 </body>
 </html>
 	
-	
+<!-- <div class="login-box">
+  <h2>Login</h2>
+  <form name="loginForm" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" onsubmit="return validateForm()">
+    <div class="user-box">
+      <input type="text" name="user_code" required>
+      <label>Username</label>
+    </div>
+    <div class="user-box">
+      <input type="password" name="user_id" minlength="8" required>
+      <label>Password</label>
+    </div>
+    <a href="#">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      Submit
+    </a>
+  </form>
+</div>
+	 -->

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Employee Maintenance</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Icons -->
-    <link rel="stylesheet" href="css/dashboard_admin.css">
+    <link rel="stylesheet" href="css/dashboard_admin_test.css">
 	<link rel="stylesheet" href="css/employee_maintenance.css">
 	<style>
 		.add-btn {

@@ -61,11 +61,37 @@
     <script>
         // Function to submit the current time to the respective input field and then submit the form
         function submitSpecificAction(fieldId) {
+            const employeeName = document.getElementById('employee_name').value;
+
+            // Check if the employee name is empty
+            if (employeeName.trim() === '') {
+                alert('Employee name is empty. Please search for the employee.');
+                return;
+            }
+
             const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            if ((isAfternoon() && fieldId.includes('am')) || (isMorning() && fieldId.includes('pm'))) {
+                alert('Invalid time entry for the selected period.');
+                return;
+            }
+
             document.getElementById(fieldId).value = currentTime;
 
             // Submit the form
             document.getElementById('attendanceForm').submit();
+        }
+
+        function isAfternoon() {
+            const now = new Date();
+            const hours = now.getHours();
+            return hours >= 12;
+        }
+
+        function isMorning() {
+            const now = new Date();
+            const hours = now.getHours();
+            return hours < 12;
         }
 
         function searchEmployee() {
