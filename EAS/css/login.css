@@ -1,0 +1,39 @@
+/* Styles for the login form */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  display: flex; /* Use flexbox */
+  justify-content: center; /* Horizontally center */
+  align-items: center; /* Vertically center */
+  height: 100vh; /* Ensure full height */
+}
+
+form {
+  width: 300px;
+  padding: 30px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+input[type="text"],
+input[type="password"],
+input[type="submit"] {
+  width: calc(100% - 12px);
+  padding: 6px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+input[type="submit"] {
+  background: #000000;
+  color: #fff;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background: #c9d0d8;
+}

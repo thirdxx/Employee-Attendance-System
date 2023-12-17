@@ -1,0 +1,11 @@
+-- Change data types and add new column for date and time
+ALTER TABLE `atlog`
+MODIFY COLUMN `am_late` INT(11) DEFAULT NULL,
+MODIFY COLUMN `am_undertime` INT(11) DEFAULT NULL,
+MODIFY COLUMN `pm_late` INT(11) DEFAULT NULL,
+MODIFY COLUMN `pm_undertime` INT(11) DEFAULT NULL,
+MODIFY COLUMN `atlog_date` TIMESTAMP;
+
+-- Drop the old date column if necessary
+ALTER TABLE `atlog`
+DROP COLUMN `atlog_date`;

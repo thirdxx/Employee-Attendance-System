@@ -1,0 +1,157 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-image: url("bg.jpg");
+  background-size: cover; /* Ensures the image covers the entire background */
+  background-position: center; /* Centers the background image */
+  background-repeat: no-repeat; /* Prevents the background image from repeating */
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+}
+h1 {
+  font-size: 30px; /* Adjust the font size as needed */
+  color: rgb(21, 61, 28); /* Set the text color */
+  /* margin-bottom: 10px;  */
+  font-weight: bold; /* Set the font weight, if desired */
+  text-align: center; /* Align the text to the center, if desired */
+  padding: 10px;
+  background-color: #d4e6c9;
+  width: 500px;
+  border-radius: 15px;
+  /* max-width: 300px; */
+  /* margin: 50px 450px -30px; */
+  margin: 80px auto;
+  margin-bottom: 30px;
+}
+
+.search-container {
+  justify-content: center;
+  align-items: center;
+  margin: 30px auto;
+  max-width: 500px;
+  background-color: #e2f0d9; /* White background color for the search container */
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Box shadow for a subtle lift effect */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#emp_id {
+  font-size: 14px; /* Adjust the font size as needed */
+  padding: 8px; /* Adjust the padding as needed */
+  width: 50%;
+  background-color: #c5e0b4;
+  border: 1px solid #548235;
+  border-radius: 10px;
+  text-align: center;
+}
+
+input::placeholder {
+  color: #385723; /* Set the desired color for the placeholder text */
+}
+
+#name {
+  font-size: 14px; /* Adjust the font size as needed */
+  padding: 8px; /* Adjust the padding as needed */
+  width: 80%;
+  margin-top: 10px;
+  background-color: #c5e0b4;
+  border: 1px solid #548235;
+  border-radius: 10px;
+  text-align: center;
+}
+
+hr {
+  color: #253f14;
+  width: 350px;
+}
+svg {
+  z-index: 1;
+}
+.person-icon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 10px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+label {
+  margin-bottom: 5px;
+}
+
+input {
+  padding: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+button {
+  padding: 10px;
+  background-color: #a9d18e; /* Green color */
+  color: #385723;
+  border: 1px solid #548235;
+  cursor: pointer;
+  border-radius: 10px;
+  width: 80px;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+button:hover {
+  background-color: #45a049; /* Darker green color on hover */
+}
+
+button.time {
+  font-weight: 600;
+}
+
+#employee_name {
+  font-size: 14px; /* Adjust the font size as needed */
+  padding: 8px; /* Adjust the padding as needed */
+  width: 75%;
+  background-color: #c5e0b4;
+  border: 1px solid #548235;
+  border-radius: 10px;
+  text-align: center;
+}
+.card {
+  width: 500px;
+  height: 100px;
+  padding: 10px;
+  background-color: #bdd1af;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  /* margin: 20px; */
+  /* margin-left: 350px; */
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+}
+#realTime {
+  color: rgb(23, 68, 26);
+  font-size: 40px;
+  margin-bottom: -10px;
+  font-weight: 500;
+  text-align: center;
+  margin-top: 10px;
+}
+#realDate {
+  color: rgb(23, 68, 26);
+  font-size: 18px;
+  margin-bottom: 35px;
+  text-align: center;
+}
+
+#calendar {
+  width: 100%;
+  text-align: center;
+}

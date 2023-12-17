@@ -1,0 +1,39 @@
+-- Create the database if it doesn't exist
+CREATE DATABASE IF NOT EXISTS EmpAttendanceSystem;
+
+-- Use the created database
+USE EmpAttendanceSystem;
+
+-- Create the 'employee' table
+CREATE TABLE IF NOT EXISTS employee (
+  emp_id int(11) NOT NULL AUTO_INCREMENT,
+  user_code varchar(100) NOT NULL,
+  name varchar(100) NOT NULL,
+  login_date date DEFAULT NULL,
+  login_time time DEFAULT NULL,
+  department varchar(50),
+  email varchar(100),
+  position varchar(50),
+  status varchar(20),
+  logout_date date DEFAULT NULL,
+  logout_time time DEFAULT NULL,
+  user_id int(11),
+  PRIMARY KEY (emp_id)
+) ENGINE=InnoDB;
+
+-- Create 'atlog' table with foreign key constraint referencing 'employee' table
+CREATE TABLE IF NOT EXISTS atlog (
+  atlog_id int(11) NOT NULL AUTO_INCREMENT,
+  emp_id int(11) NOT NULL,
+  atlog_date date DEFAULT NULL,
+  am_in time DEFAULT NULL,
+  am_out time DEFAULT NULL,
+  pm_in time DEFAULT NULL,
+  pm_out time DEFAULT NULL,
+  am_late int(11) DEFAULT NULL,
+  am_undertime int(11) DEFAULT NULL,
+  pm_late int(11) DEFAULT NULL,
+  pm_undertime int(11) DEFAULT NULL,
+  PRIMARY KEY (atlog_id),
+  CONSTRAINT fk_atlog_employee FOREIGN KEY (emp_id) REFERENCES employee(emp_id)
+) ENGINE=InnoDB;
