@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 09, 2023 at 08:57 PM
+-- Generation Time: Dec 18, 2023 at 06:10 AM
 -- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- PHP Version: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -41,14 +41,6 @@ CREATE TABLE `atlog` (
   `pm_undertime` time DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `atlog`
---
-
-INSERT INTO `atlog` (`atlog_id`, `emp_id`, `atlog_date`, `am_in`, `am_out`, `pm_in`, `pm_out`, `am_late`, `am_undertime`, `pm_late`, `pm_undertime`) VALUES
-(6, 1, '2023-12-09', '03:00:00', '02:51:00', '03:03:00', '03:02:00', NULL, NULL, NULL, NULL),
-(8, 4, '2023-12-09', '03:09:00', '03:08:00', '03:15:00', '03:15:00', NULL, NULL, NULL, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -57,12 +49,14 @@ INSERT INTO `atlog` (`atlog_id`, `emp_id`, `atlog_date`, `am_in`, `am_out`, `pm_
 
 CREATE TABLE `employee` (
   `emp_id` int(11) NOT NULL,
-  `user_code` varchar(100) DEFAULT NULL,
-  `name` varchar(100) DEFAULT NULL,
+  `user_code` varchar(100) NOT NULL,
+  `name` varchar(100) NOT NULL,
   `login_date` date DEFAULT NULL,
   `login_time` time DEFAULT NULL,
   `department` varchar(50) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
+  `phone` varchar(15) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
   `position` varchar(50) DEFAULT NULL,
   `status` varchar(20) DEFAULT NULL,
   `logout_date` date DEFAULT NULL,
@@ -74,11 +68,8 @@ CREATE TABLE `employee` (
 -- Dumping data for table `employee`
 --
 
-INSERT INTO `employee` (`emp_id`, `user_code`, `name`, `login_date`, `login_time`, `department`, `email`, `position`, `status`, `logout_date`, `logout_time`, `user_id`) VALUES
-(1, 'Adm1', 'Jayvee', NULL, NULL, 'admin', 'jv@example.com', 'admin', NULL, NULL, NULL, 123),
-(2, 'Adm2', 'Dio', NULL, NULL, 'admin', 'dio@gmail.com', 'admin', NULL, NULL, NULL, 321),
-(4, 'Emp1', 'Seby', NULL, NULL, 'sales', 'seby@gmail.com', 'manager', NULL, NULL, NULL, 213),
-(5, 'Emp2', 'Mau', NULL, NULL, 'it', 'mau@gmail.com', 'tech support', NULL, NULL, NULL, 312);
+INSERT INTO `employee` (`emp_id`, `user_code`, `name`, `login_date`, `login_time`, `department`, `email`, `phone`, `address`, `position`, `status`, `logout_date`, `logout_time`, `user_id`) VALUES
+(34, 'admin', 'Default Admin', '2023-12-14', '16:50:24', 'admin', 'btsprods@hotmail.com', '+639512787919', 'Rizal St. Legazpi, City', 'admin', 'Active', '2023-12-14', '16:49:05', 12345678);
 
 --
 -- Indexes for dumped tables
@@ -89,7 +80,7 @@ INSERT INTO `employee` (`emp_id`, `user_code`, `name`, `login_date`, `login_time
 --
 ALTER TABLE `atlog`
   ADD PRIMARY KEY (`atlog_id`),
-  ADD KEY `fk_atlog_employee` (`emp_id`);
+  ADD KEY `fk_atlog_empployee` (`emp_id`);
 
 --
 -- Indexes for table `employee`
@@ -105,13 +96,13 @@ ALTER TABLE `employee`
 -- AUTO_INCREMENT for table `atlog`
 --
 ALTER TABLE `atlog`
-  MODIFY `atlog_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `atlog_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- Constraints for dumped tables
@@ -121,7 +112,8 @@ ALTER TABLE `employee`
 -- Constraints for table `atlog`
 --
 ALTER TABLE `atlog`
-  ADD CONSTRAINT `fk_atlog_employee` FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_id`);
+  ADD CONSTRAINT `fk_atlog_employee` FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_atlog_empployee` FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
