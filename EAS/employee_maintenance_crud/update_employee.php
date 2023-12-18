@@ -1,17 +1,10 @@
 <?php
-// MySQL database connection
-$host = "localhost";
-$dbname = "EmpAttendanceSystem"; // Updated database name
-$username = "root";
-$password = "";
+include "../connect.php"; // Include the database connection file
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
-        $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
         // Retrieve form data
-        $empId = $_POST['emp_id']; // Updated variable name to match the form input name
+        $empId = $_POST['emp_id']; 
         $userCode = $_POST['user_code'];
         $name = $_POST['name'];
         $department = $_POST['department'];
@@ -23,22 +16,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $userId = $_POST['user_id'];
 
         // Update employee details in the database
-        $stmt = $pdo->prepare("UPDATE employee SET user_code = :user_code, name = :name, department = :department, email = :email, phone = :phone, address = :address, position = :position, user_id = :user_id WHERE emp_id = :emp_id");
-        $stmt->bindParam(":user_code", $userCode);
-        $stmt->bindParam(":name", $name);
-        $stmt->bindParam(":department", $department);
-        $stmt->bindParam(":email", $email);
-        $stmt->bindParam(":phone", $phone);
-        $stmt->bindParam(":address", $address);
-        $stmt->bindParam(":position", $position);
-        $stmt->bindParam(":user_id", $userId);
-        $stmt->bindParam(":emp_id", $empId);
+        $stmt = $conn->prepare("UPDATE employee SET user_code = ?, name = ?, department = ?, email = ?, phone = ?, address = ?, position = ?, user_id = ? WHERE emp_id = ?");
+        $stmt->bind_param("ssssssssi", $userCode, $name, $department, $email, $phone, $address, $position, $userId, $empId);
         $stmt->execute();
 
         // Redirect to employee maintenance page after updating the employee
         header("Location: ../employee_maintenance.php");
         exit();
-    } catch (PDOException $e) {
+    } catch (Exception $e) {
         echo "Error: " . $e->getMessage();
     }
 } else {

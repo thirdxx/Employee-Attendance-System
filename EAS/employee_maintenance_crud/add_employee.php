@@ -1,9 +1,6 @@
 <?php
-// MySQL database connection
-$host = "localhost";
-$dbname = "EmpAttendanceSystem";
-$username = "root";
-$password = "";
+// Include the database connection file
+include "../connect.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve form data
@@ -17,25 +14,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userId = $_POST['user_id'];
 
     try {
-        $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
         // Insert new employee into the database
-        $stmt = $pdo->prepare("INSERT INTO employee (user_code, name, department, email, phone, address, position, user_id) VALUES (:user_code, :name, :department, :email, :phone, :address, :position, :user_id)");
-        $stmt->bindParam(":user_code", $userCode);
-        $stmt->bindParam(":name", $name);
-        $stmt->bindParam(":department", $department);
-        $stmt->bindParam(":email", $email);
-        $stmt->bindParam(":phone", $phone);
-        $stmt->bindParam(":address", $address);
-        $stmt->bindParam(":position", $position);
-        $stmt->bindParam(":user_id", $userId);
+        $stmt = $conn->prepare("INSERT INTO employee (user_code, name, department, email, phone, address, position, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssssss", $userCode, $name, $department, $email, $phone, $address, $position, $userId);
         $stmt->execute();
 
         // Redirect to employee maintenance page after adding the employee
         header("Location: ../employee_maintenance.php");
         exit();
-    } catch (PDOException $e) {
+    } catch (Exception $e) {
         echo "Error: " . $e->getMessage();
     }
 }

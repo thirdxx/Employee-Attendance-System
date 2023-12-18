@@ -33,12 +33,7 @@ if (!isset($_SESSION['user_code']) || !isset($_SESSION['user_id'])) {
 }
 
 // Connect to the database
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "EmpAttendanceSystem";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
+include "connect.php";
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -65,21 +60,21 @@ if ($result->num_rows == 1) {
 
     // Display account information
     echo "<div class='content'>";
-echo "<div class='container'>";
-echo "<h2><i class='fa fa-user-circle' aria-hidden='true'></i> Account Information</h2>";
-echo "<table>";
-echo "<tr><td><strong>User Code</strong></td><td>$user_code</td></tr>";
-echo "<tr><td><strong>User ID</strong></td><td>$user_id</td></tr>";
-echo "<tr><td><strong>Name</strong></td><td>$name</td></tr>";
-echo "<tr><td><strong>Email</strong></td><td>$email</td></tr>";
-echo "<tr><td><strong>Phone</strong></td><td>$phone</td></tr>";
-echo "<tr><td><strong>Address</strong></td><td>$address</td></tr>";
-echo "<tr><td><strong>Department</strong></td><td>$department</td></tr>";
-echo "<tr><td><strong>Position<strong></td><td>$position</td></tr>";
-echo "</table>";
-echo "</div>";
-echo "</div>";
-} else {
+	echo "<div class='container'>";
+	echo "<h2><i class='fa fa-user-circle' aria-hidden='true'></i> Account Information</h2>";
+	echo "<table>";
+	echo "<tr><td><strong>User Code</strong></td><td>$user_code</td></tr>";
+	echo "<tr><td><strong>User ID</strong></td><td>$user_id</td></tr>";
+	echo "<tr><td><strong>Name</strong></td><td>$name</td></tr>";
+	echo "<tr><td><strong>Email</strong></td><td>$email</td></tr>";
+	echo "<tr><td><strong>Phone</strong></td><td>$phone</td></tr>";
+	echo "<tr><td><strong>Address</strong></td><td>$address</td></tr>";
+	echo "<tr><td><strong>Department</strong></td><td>$department</td></tr>";
+	echo "<tr><td><strong>Position<strong></td><td>$position</td></tr>";
+	echo "</table>";
+	echo "</div>";
+	echo "</div>";
+	} else {
     // User not found in the database, handle accordingly (e.g., redirect to login page)
     header("Location: login/login.php");
     exit();

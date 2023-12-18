@@ -25,86 +25,86 @@
 <!-- Content Area -->
 <div class="content">
 			<?php
-// Include the database connection file
-include "connect.php";
+			// Include the database connection file
+			include "connect.php";
 
-// Fetch monthly attendance data for the current month and year from atlog table
-$currentMonth = date("m");
-$currentYear = date("Y");
-$sql = "SELECT employee.emp_id, employee.name, atlog.atlog_date, atlog.am_in, atlog.am_out, atlog.pm_in, atlog.pm_out, atlog.am_late, atlog.am_undertime, atlog.pm_late, atlog.pm_undertime
-        FROM atlog 
-        INNER JOIN employee ON atlog.emp_id = employee.emp_id
-        WHERE MONTH(atlog.atlog_date) = ? AND YEAR(atlog.atlog_date) = ?
-        ORDER BY employee.emp_id, atlog.atlog_date";
+			// Fetch monthly attendance data for the current month and year from atlog table
+			$currentMonth = date("m");
+			$currentYear = date("Y");
+			$sql = "SELECT employee.emp_id, employee.name, atlog.atlog_date, atlog.am_in, atlog.am_out, atlog.pm_in, atlog.pm_out, atlog.am_late, atlog.am_undertime, atlog.pm_late, atlog.pm_undertime
+					FROM atlog 
+					INNER JOIN employee ON atlog.emp_id = employee.emp_id
+					WHERE MONTH(atlog.atlog_date) = ? AND YEAR(atlog.atlog_date) = ?
+					ORDER BY employee.emp_id, atlog.atlog_date";
 
-// Initialize variables to track current employee's name and ID
-$currentEmployeeID = null;
-$employeeName = '';
+			// Initialize variables to track current employee's name and ID
+			$currentEmployeeID = null;
+			$employeeName = '';
 
-echo "<h2>Monthly Attendance Report - Month of " . date("F Y") . "</h2>";
+			echo "<h2>Monthly Attendance Report - Month of " . date("F Y") . "</h2>";
 
-// Prepare the SQL statement
-$stmt = mysqli_prepare($conn, $sql);
-mysqli_stmt_bind_param($stmt, "ss", $currentMonth, $currentYear);
-mysqli_stmt_execute($stmt);
+			// Prepare the SQL statement
+			$stmt = mysqli_prepare($conn, $sql);
+			mysqli_stmt_bind_param($stmt, "ss", $currentMonth, $currentYear);
+			mysqli_stmt_execute($stmt);
 
-$result = mysqli_stmt_get_result($stmt);
-$atlogData = mysqli_fetch_all($result, MYSQLI_ASSOC);
+			$result = mysqli_stmt_get_result($stmt);
+			$atlogData = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-foreach ($atlogData as $atlog) {
-    // Check if it's a different employee
-    if ($atlog['emp_id'] !== $currentEmployeeID) {
-        // Display attendance data for the previous employee (if any)
-        if ($currentEmployeeID !== null) {
-            echo "</tbody></table>"; // Close previous table
-        }
+			foreach ($atlogData as $atlog) {
+				// Check if it's a different employee
+				if ($atlog['emp_id'] !== $currentEmployeeID) {
+					// Display attendance data for the previous employee (if any)
+					if ($currentEmployeeID !== null) {
+						echo "</tbody></table>"; // Close previous table
+					}
 
-        // Update employee information
-        $currentEmployeeID = $atlog['emp_id'];
-        $employeeName = $atlog['name'];
+					// Update employee information
+					$currentEmployeeID = $atlog['emp_id'];
+					$employeeName = $atlog['name'];
 
-        // Display employee name and start a new table
-        echo "<p>Employee Name: $employeeName</p>";
-        echo "<table>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>AM IN</th>
-                        <th>AM OUT</th>
-                        <th>PM IN</th>
-                        <th>PM OUT</th>
-                        <th>AM Late</th>
-                        <th>AM Undertime</th>
-                        <th>PM Late</th>
-                        <th>PM Undertime</th>
-                    </tr>
-                </thead>
-            <tbody>";
-    }
+					// Display employee name and start a new table
+					echo "<p>Employee Name: $employeeName</p>";
+					echo "<table>
+							<thead>
+								<tr>
+									<th>Date</th>
+									<th>AM IN</th>
+									<th>AM OUT</th>
+									<th>PM IN</th>
+									<th>PM OUT</th>
+									<th>AM Late</th>
+									<th>AM Undertime</th>
+									<th>PM Late</th>
+									<th>PM Undertime</th>
+								</tr>
+							</thead>
+						<tbody>";
+				}
 
-    // Display attendance data
-    echo "<tr>";
-    echo "<td>{$atlog['atlog_date']}</td>";
-    echo "<td>{$atlog['am_in']}</td>";
-    echo "<td>{$atlog['am_out']}</td>";
-    echo "<td>{$atlog['pm_in']}</td>";
-    echo "<td>{$atlog['pm_out']}</td>";
-    echo "<td>{$atlog['am_late']}</td>";
-    echo "<td>{$atlog['am_undertime']}</td>";
-    echo "<td>{$atlog['pm_late']}</td>";
-    echo "<td>{$atlog['pm_undertime']}</td>";
-    echo "</tr>";
-}
+				// Display attendance data
+				echo "<tr>";
+				echo "<td>{$atlog['atlog_date']}</td>";
+				echo "<td>{$atlog['am_in']}</td>";
+				echo "<td>{$atlog['am_out']}</td>";
+				echo "<td>{$atlog['pm_in']}</td>";
+				echo "<td>{$atlog['pm_out']}</td>";
+				echo "<td>{$atlog['am_late']}</td>";
+				echo "<td>{$atlog['am_undertime']}</td>";
+				echo "<td>{$atlog['pm_late']}</td>";
+				echo "<td>{$atlog['pm_undertime']}</td>";
+				echo "</tr>";
+			}
 
-// Close the last table
-if ($currentEmployeeID !== null) {
-    echo "</tbody></table>";
-}
+			// Close the last table
+			if ($currentEmployeeID !== null) {
+				echo "</tbody></table>";
+			}
 
-// Close the statement and connection
-mysqli_stmt_close($stmt);
-mysqli_close($conn);
-?>
+			// Close the statement and connection
+			mysqli_stmt_close($stmt);
+			mysqli_close($conn);
+			?>
 
             </tbody>
         </table>

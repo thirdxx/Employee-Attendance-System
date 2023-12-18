@@ -9,12 +9,7 @@ if (!isset($_SESSION['user_code']) || !isset($_SESSION['user_id'])) {
 }
 
 // Connect to the database
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "EmpAttendanceSystem";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
+include "../connect.php";
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);

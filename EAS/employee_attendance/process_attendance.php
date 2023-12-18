@@ -10,13 +10,7 @@ $emp_id = $_POST['emp_id'];
 $atlog_date = date('Y-m-d'); // Format: YYYY-MM-DD
 
 // Establish a connection to your MySQL database (Replace these variables with your actual database credentials)
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "EmpAttendanceSystem";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+include "../connect.php";
 
 // Check connection
 if ($conn->connect_error) {

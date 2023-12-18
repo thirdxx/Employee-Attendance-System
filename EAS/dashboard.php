@@ -179,31 +179,24 @@
       updateDate();
 
     </script> 
-<?php
+	<?php
     function getTotalEmployees() {
         // MySQL database connection
-        $host = "localhost";
-        $dbname = "EmpAttendanceSystem";
-        $username = "root";
-        $password = "";
+        include "connect.php"; // Include the database connection file
 
         try {
-            $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
             // Fetch the total number of employees
-            $stmt = $pdo->query("SELECT COUNT(*) as totalEmployees FROM employee"); // Replace 'employee' with your actual table name
-            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            $stmt = $conn->query("SELECT COUNT(*) as totalEmployees FROM employee"); // Replace 'employee' with your actual table name
+            $result = $stmt->fetch_assoc();
 
             return $result['totalEmployees'];
-        } catch (PDOException $e) {
+        } catch (Exception $e) {
             echo "Error: " . $e->getMessage();
             return 0;
         }
     }
     
     ?>
-
 
 </body>
 </html>

@@ -1,21 +1,14 @@
 <?php
-// MySQL database connection
-$host = "localhost";
-$dbname = "EmpAttendanceSystem";
-$username = "root";
-$password = "";
+include "../connect.php"; // Include the database connection file
 
 if (isset($_GET['id'])) {
     try {
-        $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
         $emp_id = $_GET['id'];
 
         if (isset($_GET['confirm']) && $_GET['confirm'] === 'yes') {
             // User confirmed deletion
-            $stmt = $pdo->prepare("DELETE FROM employee WHERE emp_id = :id");
-            $stmt->bindParam(":id", $emp_id);
+            $stmt = $conn->prepare("DELETE FROM employee WHERE emp_id = ?");
+            $stmt->bind_param("i", $emp_id); // Assuming emp_id is an integer. Change 'i' if it's another type.
             $stmt->execute();
 
             // Redirect back to the employee maintenance page after deletion
@@ -32,7 +25,7 @@ if (isset($_GET['id'])) {
                     }
                   </script>";
         }
-    } catch (PDOException $e) {
+    } catch (Exception $e) {
         echo "Error: " . $e->getMessage();
     }
 } else {

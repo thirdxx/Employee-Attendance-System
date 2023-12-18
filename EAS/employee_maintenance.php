@@ -76,19 +76,13 @@
         <tbody>
             <?php
             // MySQL database connection
-            $host = "localhost";
-            $dbname = "EmpAttendanceSystem";
-            $username = "root";
-            $password = "";
-
+			include "connect.php"; // Include the database connection file
             try {
-                $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
                 // Fetch employee data from the database
-                $stmt = $pdo->query("SELECT * FROM employee"); // Replace 'employee' with your actual table name
+                $stmt = $conn->query("SELECT * FROM employee"); // Replace 'employee' with your actual table name
 
-                while ($employee = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                while ($employee = $stmt->fetch_assoc()) {
                     echo "<tr>";
                     echo "<td>{$employee['emp_id']}</td>";
                     echo "<td>{$employee['user_code']}</td>";
@@ -105,14 +99,14 @@
                           </td>";
                     echo "</tr>";
                 }
-            } catch (PDOException $e) {
+            } catch (Exception $e) {
                 echo "Error: " . $e->getMessage();
             }
             ?>
         </tbody>
     </table>
 
-    <!-- JavaScript functions to handle actions (view, edit, delete) -->
+    <!-- JavaScript functions to handle actions (edit, delete) -->
     <script>
         function editEmployee(employeeId) {
             alert(`Edit Employee ID: ${employeeId}`);
